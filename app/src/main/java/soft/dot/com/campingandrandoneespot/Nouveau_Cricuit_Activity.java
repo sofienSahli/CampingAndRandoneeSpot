@@ -2,7 +2,9 @@ package soft.dot.com.campingandrandoneespot;
 
 import android.Manifest;
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -219,9 +221,10 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.setOnMapLongClickListener(this);
-
-        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) && checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 600000, 0, this);
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
+        } else {
+            getRuntimePermission(new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
         }
     }
 
@@ -243,15 +246,9 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == FINE_LOCATION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, COARSE_LOCATION);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
         }
-        if (requestCode == COARSE_LOCATION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                getRuntimePermission(new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
-
-            }
-        }
     }
 
     @Override
@@ -287,12 +284,7 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
     @Override
     public void onLocationChanged(Location location) {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-        currentMarker = new MarkerOptions()
-                .title("Your last know location")
-                .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
-        map.addMarker(currentMarker);
     }
 
     @Override

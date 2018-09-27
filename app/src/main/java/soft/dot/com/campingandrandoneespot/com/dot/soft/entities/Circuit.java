@@ -19,7 +19,7 @@ public class Circuit {
     long id;
     @Expose
     @SerializedName("difficulty")
-    @ColumnInfo( name = "difficulty")
+    @ColumnInfo(name = "difficulty")
     String difficulty;
     @Expose
     @SerializedName("duree")
@@ -39,8 +39,10 @@ public class Circuit {
     String title;
 
     public Circuit() {
+        this.spots = new ArrayList<>();
 
     }
+
     @Ignore
     public Circuit(String difficulty, long duree, String description, String title) {
         this.difficulty = difficulty;

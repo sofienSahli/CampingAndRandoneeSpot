@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ import soft.dot.com.campingandrandoneespot.MapsActivity;
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Difficulty;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 
 public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapters.AdapterViewHolder> {
 
@@ -44,7 +47,7 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
         holder.tvCircuitName.setText(circuit.getTitle());
         holder.tvDifficulty.setText(circuit.getDifficulty());
         holder.tvCircuitDescription.setText(circuit.getDescription());
-        holder.tvDuration.setText(" " + circuit.getDuree());
+
         holder.imageView.setOnClickListener(v -> {
             MapsActivity.circuit = circuit;
             Intent intent = new Intent(context, MapsActivity.class);
@@ -62,7 +65,6 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
         ImageView imageView;
         TextView tvCircuitName;
         TextView tvCircuitDescription;
-        TextView tvDuration;
         TextView tvDifficulty;
 
 
@@ -71,7 +73,6 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
             imageView = itemView.findViewById(R.id.imageView);
             tvCircuitName = itemView.findViewById(R.id.tvCircuitName);
             tvCircuitDescription = itemView.findViewById(R.id.tvCircuitDescription);
-            tvDuration = itemView.findViewById(R.id.tvDuration);
             tvDifficulty = itemView.findViewById(R.id.tvDifficulty);
 
 
