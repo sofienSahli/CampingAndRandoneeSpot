@@ -3,73 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp">
+    android:layout_marginBottom="2dp"
+    app:cardBackgroundColor="@color/colorPrimaryDark">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bleu"
+
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginStart="2dp"
-            android:padding="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/rimel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.11"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tvCircuitName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="5dp"
-                android:alpha=".8"
-                android:text="Cricuit 005"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvCircuitDescription"
-                android:layout_width="284dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
-                android:alpha=".5"
-                android:lineSpacingMultiplier="1.1"
-                android:text=" "
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/tvCircuitDescription"
-                android:layout_alignParentBottom="true"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="horizontal">
 
@@ -77,6 +35,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/tvCircuitDescription"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_timer"
+                    android:tint="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/tvDuree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:alpha=".5"
+                    android:gravity="center_vertical"
+                    android:text="Duree"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:src="@drawable/ic_difficulty"
                     android:tint="@color/colorWhite" />
@@ -91,11 +75,50 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp"
                     android:textStyle="italic" />
-
             </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:padding="5dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent"
+
+            >
+
+            <TextView
+                android:id="@+id/tvCircuitName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:alpha=".8"
+                android:text="Cricuit 005"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCircuitDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha=".5"
+                android:lineSpacingMultiplier="1.1"
+                android:text="dadadadadadada "
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView"

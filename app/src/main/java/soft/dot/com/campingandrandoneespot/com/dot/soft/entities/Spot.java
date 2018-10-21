@@ -27,7 +27,7 @@ import java.util.ArrayList;
         childColumns = "circuit_id"))
 public class Spot {
     @Expose
-    @SerializedName("image_url")
+    @SerializedName("image")
     @ColumnInfo(name = "image_url")
     String image_url;
     @Expose
@@ -111,26 +111,7 @@ public class Spot {
         this.description = description;
     }
 
-    public void encodeImage() {
-        byte[] byteArray = null;
-        Log.e("Image Path ", image_url);
-        File f = new File(image_url);
-        try {
-            InputStream inputStream = new FileInputStream(f);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024 * 8];
-            int bytesRead = 0;
 
-            while ((bytesRead = inputStream.read(b)) != -1) {
-                bos.write(b, 0, bytesRead);
-            }
-
-            byteArray = bos.toByteArray();
-            image_url = Base64.encodeToString(byteArray, 2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

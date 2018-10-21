@@ -1,7 +1,6 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.adapters;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,7 +40,7 @@ public class SpotListAdapter extends RecyclerView.Adapter<SpotListAdapter.Holder
         //  holder.tvLatitude.setText(spot.getLatitude() + "");
         // holder.tvLongitude.setText(spot.getLongitude() + "");
         File file = new File(spot.getImage_url());
-        Picasso.get().load(file).into(holder.imageView);
+        Glide.with(context).load(file).into(holder.imageView);
     }
 
     public void addSpot(Spot spot) {

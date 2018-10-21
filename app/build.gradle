@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
@@ -9,8 +7,8 @@ android {
         applicationId "soft.dot.com.campingandrandoneespot"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,8 +25,6 @@ android {
 
 dependencies {
     def room_version = "1.1.1"
-
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.facebook.android:facebook-login:[4,5)'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -46,19 +42,18 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'            //  JSON handler
-    implementation 'com.squareup.picasso:picasso:2.71828' //Picasso ya zabi
+    //implementation 'com.squareup.picasso:picasso:2.5.2' //Picasso ya zabi
+    implementation 'com.github.bumptech.glide:glide:3.5.2'
+    implementation 'com.github.clans:fab:1.6.2' // Floating menu library
     implementation "android.arch.persistence.room:runtime:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
-    // use kapt for Kotlin
-
     // optional - RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:$room_version"
-
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation "android.arch.persistence.room:guava:$room_version"
-
+    implementation 'com.code-troopers.betterpickers:library:2.5.3'
     // Test helpers
     testImplementation "android.arch.persistence.room:testing:$room_version"
-
+    //Time Date Picker
 
 }

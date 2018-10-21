@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/new_circuit_background_form"
+    tools:context=".FreeRaceActivity"
+
+    >
+
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Parcous Libre"
+            app:titleTextColor="@color/colorWhite" />
+
+        <fragment
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/mapView2"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <Button
+
+            android:id="@+id/demarrer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:background="@color/colorWhite"
+            android:drawablePadding="2dp"
+            android:drawableTint="@color/bleu"
+            android:paddingStart="5dp"
+            android:text="Demarrer"
+            android:textAllCaps="false"
+            android:clickable="true"
+            android:textColor="@color/bleu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapView2" />
+
+        <Chronometer
+
+            android:id="@+id/elpased_time"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorWhite"
+            android:clickable="true"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/ic_timer"
+            android:drawableTint="@color/bleu"
+            android:gravity="center_horizontal|center_vertical"
+            android:paddingStart="5dp"
+            android:textAllCaps="false"
+            android:textColor="@color/bleu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/demarrer" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:drawablePadding="2dp"
+            android:drawableTint="@color/bleu"
+            android:paddingStart="5dp"
+            android:text="Sauvegarder"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/elpased_time" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

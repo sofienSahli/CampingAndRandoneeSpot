@@ -27,6 +27,8 @@ public interface CircuitDAO {
 
     @Query("Select * from circuit")
     List<Circuit> getAll();
+    @Query("Select * from circuit where description= 'Parcours libre'")
+    List<Circuit> getFreeRun();
 
     @Query("Delete  from circuit where 1=1")
     void clearTable();

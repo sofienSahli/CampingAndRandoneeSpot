@@ -19,13 +19,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.UserSharedPref;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.UserService;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 
-public class SignUp extends AppCompatActivity implements  Callback<User> {
+public class SignUp extends AppCompatActivity implements Callback<User> {
     EditText email_field, name, password_field, confirm_password_field;
     Button sign_up;
     ProgressBar progressBar;
@@ -42,16 +46,31 @@ public class SignUp extends AppCompatActivity implements  Callback<User> {
         sign_up = findViewById(R.id.sign_up);
         progressBar = findViewById(R.id.progress_bar);
         sign_up.setOnClickListener(v -> {
-
-            if (validateData()) {
-                Toast.makeText(this, "hold on ", Toast.LENGTH_SHORT).show();
-                animateButton();
-
-            } else {
-                Dialog dialog = new Dialog(this);
-                dialog.setTitle("Caution");
-                dialog.show();
+           if (TextUtils.isEmpty(name.getText())) {
+                name.setBackground(getResources().getDrawable(R.drawable.empty_text_field_background));
+            } else if (TextUtils.isEmpty(email_field.getText())) {
+                email_field.setBackground(getResources().getDrawable(R.drawable.empty_text_field_background));
+            } else if (TextUtils.isEmpty(password_field.getText())) {
+                password_field.setBackground(getResources().getDrawable(R.drawable.empty_text_field_background));
+            } else if (TextUtils.isEmpty(confirm_password_field.getText())) {
+                confirm_password_field.setBackground(getResources().getDrawable(R.drawable.empty_text_field_background));
+            } else if (!isEmailValid(email_field.getText().toString())){
+                Toast.makeText(this, "E-mail non valide", Toast.LENGTH_SHORT).show();
             }
+            else {
+                animateButton();
+                User user = new User();
+                user.setId(System.currentTimeMillis());
+                user.setEmail(email_field.getText().toString());
+                user.setPassword(password_field.getText().toString());
+                user.setFirstName(name.getText().toString());
+                user.setLastName(name.getText().toString());
+                user.setRole("Simple User");
+                UserService us = new UserService();
+                us.SignUpUser(user, this);
+            }
+
+
         });
 
     }
@@ -60,21 +79,9 @@ public class SignUp extends AppCompatActivity implements  Callback<User> {
     private void setUpTransition() {
         getWindow().setEnterTransition(new Explode());
         getWindow().setExitTransition(new Slide());
+
     }
 
-    private boolean validateData() {
-        if (TextUtils.isEmpty(email_field.getText())
-                && TextUtils.isEmpty(name.getText())
-                && TextUtils.isEmpty(password_field.getText())
-                && TextUtils.isEmpty(confirm_password_field.getText()))
-            return false;
-        else {
-            if (password_field.getText().equals(confirm_password_field.getText())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void animateButton() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.background_anim_fade_out);
@@ -105,12 +112,15 @@ public class SignUp extends AppCompatActivity implements  Callback<User> {
 
 
     }
+    public static boolean isEmailValid(String email) {
+       return  android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 
     // WebService space
 
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
-        if (response.body() != null) {
+        if (response.body() != null && response.code() == 200) {
             UserSharedPref userSharedPref = new UserSharedPref(this.getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
             userSharedPref.logIn(response.body());
             Intent intent = new Intent(this, MainActivity.class);

@@ -24,7 +24,7 @@ public class Circuit {
     @Expose
     @SerializedName("duree")
     @ColumnInfo(name = "duree")
-    long duree;
+    String duree;
     @Expose
     @SerializedName("spots")
     @Ignore
@@ -37,6 +37,30 @@ public class Circuit {
     @SerializedName("title")
     @ColumnInfo(name = "title")
     String title;
+    @Expose
+    @SerializedName("updated_at")
+    @Ignore
+    String updated_at;
+    @Expose
+    @SerializedName("created_at")
+    @Ignore
+    String created_at;
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
 
     public Circuit() {
         this.spots = new ArrayList<>();
@@ -44,7 +68,7 @@ public class Circuit {
     }
 
     @Ignore
-    public Circuit(String difficulty, long duree, String description, String title) {
+    public Circuit(String difficulty, String duree, String description, String title) {
         this.difficulty = difficulty;
         this.duree = duree;
         this.description = description;
@@ -100,11 +124,11 @@ public class Circuit {
         this.difficulty = difficulty;
     }
 
-    public long getDuree() {
+    public String getDuree() {
         return duree;
     }
 
-    public void setDuree(long duree) {
+    public void setDuree(String duree) {
         this.duree = duree;
     }
 }

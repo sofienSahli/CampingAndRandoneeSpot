@@ -1,6 +1,7 @@
 package soft.dot.com.campingandrandoneespot;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -26,13 +28,23 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.transition.Explode;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
+import com.codetroopers.betterpickers.timepicker.TimePickerBuilder;
+import com.codetroopers.betterpickers.timepicker.TimePickerDialogFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -47,16 +59,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.RetrofitClient;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.intefaces.ISpotService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.CircuitService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.SpotService;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.adapters.SpotListAdapter;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Difficulty;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 
-public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, LocationListener, Callback {
+public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMapReadyCallback,
+        GoogleMap.OnMapLongClickListener, LocationListener, Callback, SeekBar.OnSeekBarChangeListener {
     private static final int CAMERA = 100;
     private static final int IMAGE_GALLERY = 205;
     private static final String IMAGE_DIRECTORY = "/location_images";
@@ -68,10 +87,13 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
     private final int COARSE_LOCATION = 202;
     ImageButton imageButton;
     Circuit circuit;
-    RadioGroup radioGroup;
+    //RadioGroup radioGroup;
     EditText etDescription, tvcircuitTitre, tvPostDescription;
     String lastSavedPath;
     RecyclerView spotsRecyclerView;
+    Button select_time;
+    SeekBar difficulty;
+    String duree;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,10 +102,23 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
         getWindow().setEnterTransition(new Explode());
         getWindow().setExitTransition(new Explode());
         showDialogChoice();
+        difficulty = findViewById(R.id.tvDifficulty);
+        difficulty.setOnSeekBarChangeListener(this);
+        difficulty.setMax(2);
+        select_time = findViewById(R.id.select_time);
+        select_time.setOnClickListener(v -> {
+            TimePickerBuilder tpb = new TimePickerBuilder()
+                    .setFragmentManager(getSupportFragmentManager())
+                    .setStyleResId(R.style.BetterPickersDialogFragment_Light);
+            tpb.show();
+            tpb.addTimePickerDialogHandler((reference, hourOfDay, minute) -> {
+                select_time.setText(hourOfDay + " : " + minute);
+                duree = hourOfDay + " : " + minute;
+            });
+        });
+
         tvcircuitTitre = findViewById(R.id.tvcircuitTitre);
         etDescription = findViewById(R.id.etdescription);
-        radioGroup = findViewById(R.id.rgdifficulty);
-
         findViewById(R.id.addSpot).setOnClickListener(v -> {
             if (circuit == null)
                 instatiateCircuit();
@@ -97,31 +132,19 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
         spotsRecyclerView.setAdapter(new SpotListAdapter(this, new ArrayList<>()));
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
         spotsRecyclerView.setLayoutManager(mLayoutManager);
-        findViewById(R.id.ibDone).setOnClickListener(v -> checkCircuitIntegrity());
+        findViewById(R.id.ibDone).setOnClickListener(v -> closeWindow());
     }
 
     // Check weitehr or not the circuit is complete
-    private void checkCircuitIntegrity() {
-        if (circuit.getSpots().isEmpty()) {
-            Toast.makeText(this, "Il n'est pas possible d'ajouter un circuit sans spots", Toast.LENGTH_SHORT).show();
-        } else {
-         /*   for (Spot spot : circuit.getSpots()) {
-                spot.encodeImage();
-            }*/
-            //TODO reuse service once backend ready and change return to previous activity from callback
-            //CircuitService circuitService = new CircuitService();
-            //circuitService.addCircuit(this, circuit);
-            AppDatabase.getAppDatabase(this).circuitDAO().insertCircuit(circuit);
-            AppDatabase.getAppDatabase(this).spotDao().insertAllSpot(circuit.getSpots());
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        }
-
+    private void closeWindow() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void instatiateCircuit() {
         circuit = new Circuit();
         circuit.setId(System.currentTimeMillis());
+        circuit.setDuree(duree);
         if (TextUtils.isEmpty(tvcircuitTitre.getText())) {
             tvcircuitTitre.setBackgroundResource(R.drawable.empty_text_field_background);
             tvcircuitTitre.setOnClickListener(v -> v.setBackground(null));
@@ -136,27 +159,27 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
         } else {
             circuit.setDescription(etDescription.getText().toString());
         }
-        if (radioGroup.getCheckedRadioButtonId() == -1) {
+        switch (difficulty.getProgress()) {
+            case 0:
+                circuit.setDifficulty(Difficulty.Easy.toString());
+                break;
+            case 1:
+                circuit.setDifficulty(Difficulty.Medium.toString());
+                break;
+            case 2:
+                circuit.setDifficulty(Difficulty.Hard.toString());
+                break;
 
-            radioGroup.setBackgroundResource(R.drawable.empty_text_field_background);
-            radioGroup.setOnClickListener(v -> v.setBackground(null));
-            return;
-        } else {
-            switch (radioGroup.getCheckedRadioButtonId()) {
-                case R.id.rbeasy:
-                    circuit.setDifficulty(Difficulty.Easy.toString());
-                    break;
-                case R.id.rbmedium:
-                    circuit.setDifficulty(Difficulty.Medium.toString());
-                    break;
-                case R.id.rbhard:
-                    circuit.setDifficulty(Difficulty.Hard.toString());
-                    break;
-            }
+
         }
-        if (circuit.getSpots() == null)
-            circuit.setSpots(new ArrayList<>());
-        dialog.show();
+        if (TextUtils.isEmpty(circuit.getDuree())) {
+            circuit.setDuree("00:00");
+            circuit.setUpdated_at("undefined");
+            circuit.setCreated_at("undefined");
+        }
+        CircuitService circuitService = new CircuitService();
+        circuitService.addCircuit(this, circuit);
+
     }
 
     //Prepare new Spot dialog
@@ -244,7 +267,8 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         if (requestCode == FINE_LOCATION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
         }
@@ -267,7 +291,7 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show();
+                    Log.e("Saving image", "erreur");
                 }
             }
 
@@ -275,7 +299,6 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             imageButton.setImageBitmap(thumbnail);
             saveImage(thumbnail);
-            Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -342,40 +365,89 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
             Toast.makeText(this, "Veuillez placer un marker sur la carte", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            Toast.makeText(this, " latitude = " + currentMarker.getPosition().latitude + "    " + " longitude = " + currentMarker.getPosition().longitude, Toast.LENGTH_SHORT).show();
             spot.setLongitude(currentMarker.getPosition().longitude);
             spot.setLatitude(currentMarker.getPosition().latitude);
         }
         if (TextUtils.isEmpty(lastSavedPath)) {
             imageButton.setBackgroundResource(R.drawable.empty_text_field_background);
             return;
-        } else {
+        } else {//description description
 
             spot.setImage_url(lastSavedPath);
         }
         if (!TextUtils.isEmpty(tvPostDescription.getText())) {
             spot.setDescription(tvPostDescription.getText().toString());
         }
-        ((SpotListAdapter) spotsRecyclerView.getAdapter()).addSpot(spot);
-        spot.setCircuit(circuit);
-        circuit.getSpots().add(spot);
 
-        Toast.makeText(this, "" + circuit.getSpots().size(), Toast.LENGTH_SHORT).show();
+        ((SpotListAdapter) spotsRecyclerView.getAdapter()).addSpot(spot);
+        ((SpotListAdapter) spotsRecyclerView.getAdapter()).notifyDataSetChanged();
+        spot.setCircuit(circuit);
+        File f = new File(lastSavedPath);
+        RequestBody filePart = RequestBody.create(MediaType.parse("file"), f);
+
+        SpotService spotService = new SpotService();
+        spotService.addCircuit(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.code() == 200) {
+                    AppDatabase.getAppDatabase(Nouveau_Cricuit_Activity.this).spotDao().insertSpot(spot);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                AppDatabase.getAppDatabase(Nouveau_Cricuit_Activity.this).spotDao().insertSpot(spot);
+
+            }
+        }, spot, filePart);
+
     }
 
     //Add circuit callback
     @Override
     public void onResponse(Call call, Response response) {
-        if (response.body() != null) {
-            Toast.makeText(this, "Nouveau circuit ajouté avec succés", Toast.LENGTH_SHORT).show();
+        if (response.code() == 200) {
+            Log.e("service here ", "200");
+            AppDatabase.getAppDatabase(Nouveau_Cricuit_Activity.this).circuitDAO().insertCircuit(circuit);
+            if (circuit.getSpots() == null)
+                circuit.setSpots(new ArrayList<>());
+            dialog.show();
         }
     }
 
     @Override
     public void onFailure(Call call, Throwable t) {
-        Toast.makeText(this, "Echeck de l'ajout", Toast.LENGTH_SHORT).show();
-        Log.e("Failed  to add ", t.getMessage());
+        AppDatabase.getAppDatabase(Nouveau_Cricuit_Activity.this).circuitDAO().insertCircuit(circuit);
+        if (circuit.getSpots() == null)
+            circuit.setSpots(new ArrayList<>());
+        // dialog.show();
+        Log.e("service here ", t.getMessage());
 
     }
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        int max = 2;
+        if (i > max) {
+            seekBar.setProgress(max);
+        } else {
+            seekBar.setProgress(i);
+        }
+
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+        seekBar.setBackground(getDrawable(R.drawable.back_text_bleu));
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        seekBar.setBackground(getDrawable(android.R.drawable.screen_background_light_transparent));
+
+
+    }
 }

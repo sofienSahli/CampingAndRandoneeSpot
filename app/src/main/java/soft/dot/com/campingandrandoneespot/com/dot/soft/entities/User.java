@@ -1,5 +1,9 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.entities;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,29 +13,40 @@ import java.util.List;
 /**
  * Created by sofien on 05/02/2018.
  */
-
+@Entity
 public class User {
     @Expose
     @SerializedName("id")
+    @PrimaryKey(autoGenerate = true)
     private long id;
 
     @Expose
     @SerializedName("password")
+    @ColumnInfo(name = "password")
     private String password;
     @Expose
     @SerializedName("first_name")
+    @ColumnInfo(name = "firstName")
+
     private String firstName;
     @Expose
     @SerializedName("last_name")
+    @ColumnInfo(name = "lastName")
+
     private String lastName;
     @Expose
     @SerializedName("role")
+    @ColumnInfo(name = "role")
+
     private String role;
     @Expose
     @SerializedName("birthDate")
+    @ColumnInfo(name = "birthDate")
+
     private String birthDate;
     @Expose
-    @SerializedName("mail")
+    @SerializedName("email")
+    @ColumnInfo(name = "email")
     String email;
 
     public long getId() {
@@ -88,5 +103,18 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role='" + role + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

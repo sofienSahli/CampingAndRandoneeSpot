@@ -14,7 +14,9 @@ public class UserSharedPref {
     public static final String EMAIL = "EMAIL";
     public static final String USER_FIRST_NAME = "USER_FIRST_NAME";
     public static final String USER_LAST_NAME = "USER_LAST_NAME";
+    public static final String USER_BIRTHDATE = "USER_BIRTHDATE";
     public static final String USER_PASSWRD = "USER_PASSWRD";
+    public static final String USER_ROLE = "USER_PASSWRD";
 
 
     SharedPreferences sharedPreferences;
@@ -79,7 +81,7 @@ public class UserSharedPref {
     }
 
     public long getLong(String label) {
-        return sharedPreferences.getLong(label,   -1L);
+        return sharedPreferences.getLong(label, -1L);
     }
 
     public static void logOut(SharedPreferences sharedPreferences) {
@@ -92,6 +94,8 @@ public class UserSharedPref {
         insertString(UserSharedPref.USER_LAST_NAME, user.getLastName());
         insertString(UserSharedPref.USER_PASSWRD, user.getPassword());
         insertString(UserSharedPref.EMAIL, user.getEmail());
+        insertString(UserSharedPref.USER_BIRTHDATE, user.getBirthDate());
+        insertString(UserSharedPref.USER_ROLE, user.getBirthDate());
         inserLong(UserSharedPref.USER_ID, user.getId());
 
     }

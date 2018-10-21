@@ -13,7 +13,7 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
  */
 
 public interface IUserServices {
-    @POST ("users")
+    @POST ("/api/users")
     Call<User> signUp( @Body User user);
 
 /*    @GET()

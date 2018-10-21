@@ -13,20 +13,21 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="server_client_id">AIzaSyDcFsiRj4hfk2_Q8au9TAYeA85aamOgecg</string>
-    <string name="facebook_app_id">331759977343695</string>
-    <string name="fb_login_protocol_scheme">fb331759977343695</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDd8F1y14QmSEDPTsVxGOkURhpsQ-nMb0c</string>
+    <string name="server_client_id">451452049112-s52lqnaim6827gucla463h0l9mbr5e9o.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1766005430162080</string>
+    <string name="fb_login_protocol_scheme">fb1766005430162080</string>
+
     <string name="title_activity_maps">Map</string>
     <string name="descritipn">Description</string>
     <string name="easy">Easy</string>
-    <string name="difficult_du_circuit">Difficulté du circuit:</string>
+    <string name="difficult_du_circuit">Difficulté du circuit</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
     <string name="titre">Titre</string>
-    <string name="une_bref_description">Une bref description :</string>
+    <string name="une_bref_description">Une bref description </string>
     <string name="un_titre_pour_ce_circuit">Un titre pour ce circuit</string>
-    <string name="ajouter_spot">Ajouter Spot</string>
-    <string name="nouveau_spot">Nouveau Spot</string>
+    <string name="ajouter_spot">Ajouter un Spot au circuit </string>
     <string name="experience_randonneur">Trouvez ou partager votre propore experience de randonneur</string>
     <string name="title_activity_base_drawer_activity">Base_drawer_activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -35,6 +36,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="records_personel">Records personel</string>
+    <string name="recommend_pour_vous">Recommendé pour vous:</string>
 
 
 </resources>

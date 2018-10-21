@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import soft.dot.com.campingandrandoneespot.FreeRaceActivity;
 import soft.dot.com.campingandrandoneespot.Nouveau_Cricuit_Activity;
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
@@ -33,23 +37,46 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 public class CircuitListFragment extends Fragment implements View.OnClickListener, Callback<List<Circuit>> {
     RecyclerView list_parcourt;
     CardView cardView;
+    RecyclerView freeRuns;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.base_expandable_fragment, container, false);
-        SetUpRecyclerView(view, (ArrayList<Circuit>) AppDatabase.getAppDatabase(getActivity()).circuitDAO().getAll());
-        callForCircuit();
-        view.findViewById(R.id.imageButton).setOnClickListener(v -> cardeFedeOut());
-        view.findViewById(R.id.fab).setOnClickListener(v -> goToNewCircuitActivity());
-        cardView = view.findViewById(R.id.cardView);
 
+        View view = layoutInflater.inflate(R.layout.base_expandable_fragment, container, false);
+        freeRuns = view.findViewById(R.id.recyclerView_freeRun);
+        setUpHorizontalRecyclerView();
+        callForCircuit();
+        view.findViewById(R.id.material_design_floating_action_menu_item1).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), Nouveau_Cricuit_Activity.class);
+            getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+
+        });
+        view.findViewById(R.id.material_design_floating_action_menu_item2).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FreeRaceActivity.class);
+            getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+
+        });
+        list_parcourt = view.findViewById(R.id.list_parcours);
+        cardView = view.findViewById(R.id.cardView);
+        CircuitService circuitService = new CircuitService();
+        circuitService.getAll(this);
+        ArrayList<Circuit> circuits = (ArrayList<Circuit>) AppDatabase.getAppDatabase(getActivity()).circuitDAO().getFreeRun();
+        Log.e("free runs", circuits.toString());
         return view;
     }
 
-    private void SetUpRecyclerView(View view, ArrayList<Circuit> circuits) {
-        list_parcourt = view.findViewById(R.id.list_parcours);
+    private void setUpHorizontalRecyclerView() {
+        List<Circuit> circuits = AppDatabase.getAppDatabase(getActivity()).circuitDAO().getFreeRun();
+        CircuitListAdapters adapters = new CircuitListAdapters((ArrayList<Circuit>) circuits, getActivity());
+        freeRuns.setAdapter(adapters);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
+        freeRuns.setLayoutManager(mLayoutManager);
+    }
+
+
+    private void SetUpRecyclerView(ArrayList<Circuit> circuits) {
         CircuitListAdapters adapters = new CircuitListAdapters(circuits, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         list_parcourt.setLayoutManager(mLayoutManager);
@@ -63,15 +90,20 @@ public class CircuitListFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onResponse(Call<List<Circuit>> call, Response<List<Circuit>> response) {
-
+        if (response.code() == 200) {
+            Log.e("Jawou béhi Service", response.body().size() + "");
+            SetUpRecyclerView((ArrayList<Circuit>) response.body());
+        } else {
+            Log.e("Erreur Service not 200", response.message());
+            SetUpRecyclerView((ArrayList<Circuit>) AppDatabase.getAppDatabase(getActivity()).circuitDAO().getAll());
+        }
     }
 
     @Override
     public void onFailure(Call<List<Circuit>> call, Throwable t) {
         Log.e("Erreur service", t.getMessage());
-/*        Snackbar.make(getView(), "Unable to join distant server", Snackbar.LENGTH_SHORT).setAction("Retry", v -> {
-            callForCircuit();
-        }).show();*/
+        SetUpRecyclerView((ArrayList<Circuit>) AppDatabase.getAppDatabase(getActivity()).circuitDAO().getAll());
+
     }
 
     private void callForCircuit() {

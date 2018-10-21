@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,8 +58,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (circuit != null) {
+        if (circuit.getSpots().isEmpty()) {
             spots = (ArrayList<Spot>) AppDatabase.getAppDatabase(this).spotDao().findSpotsForCircuit(circuit.getId());
+
+        } else {
+            spots = circuit.getSpots();
         }
 
     }
@@ -135,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setOnMyLocationButtonClickListener(this);
             mMap.setOnMyLocationClickListener(this);
             mMap.setOnInfoWindowClickListener(this);
-            mMap.setInfoWindowAdapter(new CustomInfoWindowGoogleMap(this));
+            mMap.setInfoWindowAdapter(new CustomInfoWindowGoogleMap(this,spots));
         } else {
             Toast.makeText(this, "Erreur interne veuilliez ressayer plus tard", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
