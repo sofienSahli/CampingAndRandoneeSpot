@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import soft.dot.com.campingandrandoneespot.MapsActivity;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.MapsActivity;
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 
 public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapters.AdapterViewHolder> {
@@ -42,11 +41,10 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
         holder.tvCircuitName.setText(circuit.getTitle());
         holder.tvDifficulty.setText(circuit.getDifficulty());
         holder.tvCircuitDescription.setText(circuit.getDescription());
+
+
         holder.tvDuree.setText(circuit.getDuree());
         holder.imageView.setOnClickListener(v -> {
-
-
-
             MapsActivity.circuit = circuit;
             Intent intent = new Intent(context, MapsActivity.class);
             context.startActivity(intent);

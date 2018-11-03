@@ -59,7 +59,7 @@
                 android:inputType="textEmailAddress"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorBlackTransparent"
+                android:textColorHint="@color/colorWhite"
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -84,7 +84,7 @@
                 android:inputType="textPassword"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorBlackTransparent"
+                android:textColorHint="@color/colorWhite"
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
 

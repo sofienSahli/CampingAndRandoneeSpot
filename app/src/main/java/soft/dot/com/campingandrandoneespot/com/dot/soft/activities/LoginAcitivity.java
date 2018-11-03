@@ -1,4 +1,4 @@
-package soft.dot.com.campingandrandoneespot;
+package soft.dot.com.campingandrandoneespot.com.dot.soft.activities;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -7,14 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.transition.AutoTransition;
 import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeScroll;
 import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,7 +20,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -35,7 +30,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,11 +39,10 @@ import java.util.Arrays;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.UserSharedPref;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.UserService;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Role;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 
 public class LoginAcitivity extends AppCompatActivity implements View.OnClickListener, Callback<User> {

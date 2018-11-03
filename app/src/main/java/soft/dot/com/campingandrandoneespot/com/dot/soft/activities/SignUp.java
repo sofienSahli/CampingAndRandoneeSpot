@@ -1,11 +1,9 @@
-package soft.dot.com.campingandrandoneespot;
+package soft.dot.com.campingandrandoneespot.com.dot.soft.activities;
 
 import android.app.ActivityOptions;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.transition.Explode;
@@ -19,12 +17,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.UserSharedPref;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.UserService;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;

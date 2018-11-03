@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -9,54 +10,79 @@
 
     >
 
-    <LinearLayout
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01999998">
 
-        <android.support.v7.widget.AppCompatTextView
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/page_indicator"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/records_personel"
-            android:textColor="@color/colorBlackTransparent"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:layout_height="50dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorPrimaryDark"
+            android:theme="@style/AppTheme"
 
-            />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView_freeRun"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/viewPager"
+            app:tabIndicatorColor="@color/colorAccent" />
+    </android.support.v4.view.ViewPager>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_marginBottom="1dp"
-            android:layout_marginTop="1dp"
-            android:background="@color/bleu"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu_animationDelayPerItem="55"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        app:menu_colorRipple="@color/colorPrimaryDark"
+        app:menu_fab_size="normal"
+        app:menu_labels_colorNormal="#333"
+        app:menu_labels_colorPressed="#444"
+        app:menu_labels_colorRipple="#66efecec"
+        app:menu_labels_cornerRadius="3dp"
+        app:menu_labels_ellipsize="none"
+        app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        app:menu_labels_margin="0dp"
+        app:menu_labels_maxLines="-1"
+        app:menu_labels_padding="8dp"
+        app:menu_labels_position="left"
+        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        app:menu_labels_showShadow="true"
+        app:menu_labels_singleLine="false"
+        app:menu_labels_textColor="#f2f1f1"
+        app:menu_labels_textSize="15sp"
+        app:menu_openDirection="up">
 
-            />
-
-
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="match_parent"
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/recommend_pour_vous"
-            android:textColor="@color/colorBlackTransparent"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:src="@android:drawable/ic_input_add"
+            app:fab_label="Cricuit Déja Connu"
+            app:fab_size="mini" />
 
-            />
-    </LinearLayout>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cropToPadding="true"
+            android:padding="4dp"
+            android:src="@android:drawable/ic_input_add"
+            app:fab_label="Marche libre"
+            app:fab_size="mini" />
+    </com.github.clans.fab.FloatingActionMenu>
 
-    <include
-        layout="@layout/circuit_list"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

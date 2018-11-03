@@ -1,4 +1,4 @@
-package soft.dot.com.campingandrandoneespot;
+package soft.dot.com.campingandrandoneespot.com.dot.soft.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
     ImageView logo;

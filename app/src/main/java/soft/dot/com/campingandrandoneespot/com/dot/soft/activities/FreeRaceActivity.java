@@ -1,4 +1,4 @@
-package soft.dot.com.campingandrandoneespot;
+package soft.dot.com.campingandrandoneespot.com.dot.soft.activities;
 
 import android.Manifest;
 import android.app.ActivityOptions;
@@ -27,9 +27,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.UserSharedPref;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 
@@ -155,7 +159,13 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
             }
         } else if (view.getId() == R.id.save) {
             long passedTime = getElpaseTime();
-            circuit.setDuree("" + passedTime);
+            String time = String.format("%02d min, %02d sec",
+                    TimeUnit.MILLISECONDS.toMinutes(passedTime),
+                    TimeUnit.MILLISECONDS.toSeconds(passedTime) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(passedTime))
+            );
+
+            circuit.setDuree(time);
             AppDatabase.getAppDatabase(this).circuitDAO().insertCircuit(circuit);
             AppDatabase.getAppDatabase(this).spotDao().insertAllSpot(circuit.getSpots());
             Toast.makeText(this, "Parcours sauvegardée", Toast.LENGTH_SHORT).show();
@@ -170,16 +180,18 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void instantiateCircuit() {
-
+        UserSharedPref userSharedPref = new UserSharedPref(getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
+        String name = userSharedPref.getString(UserSharedPref.USER_FIRST_NAME) + " " + userSharedPref.getString(UserSharedPref.USER_LAST_NAME);
         circuit = new Circuit();
         circuit.setId(System.currentTimeMillis());
-        circuit.setTitle("Test");
-        circuit.setCreated_at("ae");
+        circuit.setTitle(name);
+        LocalDate localDate = LocalDate.now();
+        circuit.setCreated_at(localDate.toString());
         circuit.setUpdated_at("eza");
         circuit.setSpots(new ArrayList<>());
         circuit.setDescription("Parcours libre");
-        circuit.setDifficulty("Not attriable");
-        circuit.setDuree("ad");
+        circuit.setDifficulty(userSharedPref.getLong(UserSharedPref.USER_ID) + "");
+        circuit.setDuree("000");
 
     }
 

@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -32,12 +32,12 @@
 
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginAcitivity"
+            android:name=".com.dot.soft.activities.LoginAcitivity"
             android:theme="@style/RegisterThem"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".LoginAcitivity"
+            android:name=".com.dot.soft.activities.MainActivity"
+            android:parentActivityName=".com.dot.soft.activities.LoginAcitivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
@@ -62,14 +62,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUp"
+            android:name=".com.dot.soft.activities.SignUp"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".com.dot.soft.activities.SplashScreenActivity">
+            <!-- Intent Main Activity Goes Here
+            <intent-filter android:icon="@mipmap/ic_icone">
+                 <action android:name="android.intent.action.MAIN" />
+
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+            -->
+
             <intent-filter android:icon="@mipmap/ic_icone">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <meta-data
@@ -77,12 +86,17 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".com.dot.soft.activities.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".Nouveau_Cricuit_Activity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".FreeRaceActivity"></activity>
+            android:name=".com.dot.soft.activities.Nouveau_Cricuit_Activity"
+            android:parentActivityName=".com.dot.soft.activities.MainActivity"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            />
+        <activity android:name=".com.dot.soft.activities.FreeRaceActivity"></activity>
+        <activity android:name=".com.dot.soft.activities.FirstActivity">
+
+        </activity>
     </application>
 
 </manifest>
