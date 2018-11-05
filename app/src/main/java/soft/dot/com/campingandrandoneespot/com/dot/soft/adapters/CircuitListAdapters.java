@@ -1,16 +1,21 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.adapters;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.Circuit_detail;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.MapsActivity;
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
@@ -49,7 +54,14 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
             Intent intent = new Intent(context, MapsActivity.class);
             context.startActivity(intent);
         });
+        holder.item_body.setOnClickListener(v -> {
+            Circuit_detail.circuit = circuit;
+            Intent intent = new Intent(context, Circuit_detail.class);
+            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
+        });
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -63,9 +75,11 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
         TextView tvCircuitDescription;
         TextView tvDifficulty;
         TextView tvDuree;
+        ConstraintLayout item_body;
 
         public AdapterViewHolder(View itemView) {
             super(itemView);
+            item_body = itemView.findViewById(R.id.item_body);
             imageView = itemView.findViewById(R.id.imageView);
             tvCircuitName = itemView.findViewById(R.id.tvCircuitName);
             tvCircuitDescription = itemView.findViewById(R.id.tvCircuitDescription);
