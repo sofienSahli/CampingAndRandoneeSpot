@@ -27,8 +27,9 @@ import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.ExpandCollapsAnim;
 
-public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallback {
+public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMapLongClickListener {
     public final static String CIRCUIT_ID = "CIRCUIT_ID";
     public static Circuit circuit;
     private ArrayList<Spot> spots;
@@ -45,6 +46,9 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
         } else {
             spots = circuit.getSpots();
         }
+        findViewById(R.id.imageButton2).setOnClickListener(v->{
+            ExpandCollapsAnim.collapse(findViewById(R.id.details_layout));
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -76,13 +80,16 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
         PolylineOptions polyline = new PolylineOptions()
                 .clickable(true);
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        int i=0 ;
         for (Spot spot : spots) {
             Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(spot.getLatitude(), spot.getLongitude())));
             marker.setTag(spot.getId());
             polyline.add(new LatLng(spot.getLatitude(), spot.getLongitude()));
-
+            marker.setTitle(""+i);
+            i++;
         }
+        mMap.setOnMapLongClickListener(this);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(spots.get(0).getLatitude(), spots.get(0).getLongitude())));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
         mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 2000, null);
@@ -99,5 +106,11 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
         loc2.setLongitude(end.getLongitude());
 
         return loc1.distanceTo(loc2);
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        ExpandCollapsAnim.expand(findViewById(R.id.details_layout));
+
     }
 }

@@ -38,16 +38,16 @@ public class FirstIntroductionFragment extends Fragment {
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
             return iv;
         });
-        Animation in = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
+        Animation in = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_in_left);
         imageSwitcher.setInAnimation(in);
 
-        imageSwitcher.setImageResource(R.drawable.rimel_landscape_2);
+        imageSwitcher.setImageResource(R.drawable.intr1);
         Timer t = new Timer();
         //Set the schedule function and rate
 
 
         t.scheduleAtFixedRate(new TimerTask() {
-            int ids[] = {R.drawable.besla, R.drawable.rimel_landscape_2, R.drawable.rimel_landscapte, R.drawable.rimel_tree};
+            int ids[] = {R.drawable.intr1 , R.drawable.intr2 ,R.drawable.intr3 };
             int current_index = 0;
 
             public void run() {
@@ -56,11 +56,11 @@ public class FirstIntroductionFragment extends Fragment {
                     imageSwitcher.setImageResource(ids[current_index]);
                 });
                 current_index++;
-                if (current_index == 4)
+                if (current_index == 3)
                     current_index = 0;
             }
 
-        }, 0, 1000);
+        }, 0, 5000);
 
 
     }

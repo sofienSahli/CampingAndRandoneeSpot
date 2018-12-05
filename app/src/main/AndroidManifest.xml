@@ -71,11 +71,7 @@
              </intent-filter>
             -->
 
-            <intent-filter android:icon="@mipmap/ic_icone">
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -88,9 +84,17 @@
         <activity
             android:name=".com.dot.soft.activities.Nouveau_Cricuit_Activity"
             android:parentActivityName=".com.dot.soft.activities.MainActivity"
-            android:theme="@style/AppTheme.AppBarOverlay" />
+          />
         <activity android:name=".com.dot.soft.activities.FreeRaceActivity" />
-        <activity android:name=".com.dot.soft.activities.FirstActivity"></activity>
+        <activity android:name=".com.dot.soft.activities.FirstActivity">
+
+            <intent-filter android:icon="@mipmap/ic_icone">
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".com.dot.soft.activities.Circuit_detail"
             android:parentActivityName=".com.dot.soft.activities.MainActivity"

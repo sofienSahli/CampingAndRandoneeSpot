@@ -159,13 +159,14 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
             }
         } else if (view.getId() == R.id.save) {
             long passedTime = getElpaseTime();
-            String time = String.format("%02d min, %02d sec",
+                /*
+                    String time = String.format("%02d min, %02d sec",
                     TimeUnit.MILLISECONDS.toMinutes(passedTime),
                     TimeUnit.MILLISECONDS.toSeconds(passedTime) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(passedTime))
-            );
-
-            circuit.setDuree(time);
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(passedTime))
+                    );
+                    */
+            circuit.setDuree(passedTime+"");
             AppDatabase.getAppDatabase(this).circuitDAO().insertCircuit(circuit);
             AppDatabase.getAppDatabase(this).spotDao().insertAllSpot(circuit.getSpots());
             Toast.makeText(this, "Parcours sauvegardée", Toast.LENGTH_SHORT).show();

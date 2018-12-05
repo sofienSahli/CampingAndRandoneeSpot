@@ -67,7 +67,7 @@ public class FirstActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(viewPager, true);
         findViewById(R.id.button3).setOnClickListener(v -> {
-            Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+            Intent intent = new Intent(FirstActivity.this, LoginAcitivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(FirstActivity.this).toBundle());
         });
 

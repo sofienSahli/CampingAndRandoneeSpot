@@ -24,7 +24,7 @@ public interface SpotDAO {
     @Update
     void updateCircuit(Spot circuit);
 
-    @Query("Delete  from circuit where 1=1")
+    @Query("Delete  from circuit ")
     void clearTable();
 
     @Query("Select * from spot where id= :id")
@@ -35,4 +35,5 @@ public interface SpotDAO {
 
     @Query("SELECT * FROM spot WHERE circuit_id=:circuitId")
     List<Spot> findSpotsForCircuit(final long circuitId);
+
 }
