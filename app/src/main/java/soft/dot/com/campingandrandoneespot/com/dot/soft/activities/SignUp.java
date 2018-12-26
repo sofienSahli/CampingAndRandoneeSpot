@@ -21,8 +21,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.UserSharedPref;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.UserService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.UserSharedPref;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.UserService;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 
 public class SignUp extends AppCompatActivity implements Callback<User> {

@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 @Entity()
-public class Circuit {
+public class Circuit implements Parcelable {
     @Expose
     @SerializedName("id")
     @PrimaryKey(autoGenerate = true)
@@ -24,7 +26,7 @@ public class Circuit {
     @Expose
     @SerializedName("duree")
     @ColumnInfo(name = "duree")
-    String duree;
+    long duree;
     @Expose
     @SerializedName("spots")
     @Ignore
@@ -45,6 +47,33 @@ public class Circuit {
     @SerializedName("created_at")
     @Ignore
     String created_at;
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Circuit createFromParcel(Parcel in) {
+            return new Circuit(in);
+        }
+
+        public Circuit[] newArray(int size) {
+            return new Circuit[size];
+        }
+    };
+
+    public Circuit(Parcel in) {
+        this.id = in.readLong() ;
+        this.difficulty = in.readString();
+        this.duree = in.readLong();
+        this.description = in.readString();
+        this.title = in.readString();
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeLong(this.id);
+            parcel.writeString(this.difficulty);
+            parcel.writeLong(this.duree);
+            parcel.writeString(this.description);
+            parcel.writeString(this.title);
+    }
 
     public String getUpdated_at() {
         return updated_at;
@@ -68,7 +97,7 @@ public class Circuit {
     }
 
     @Ignore
-    public Circuit(String difficulty, String duree, String description, String title) {
+    public Circuit(String difficulty, long duree, String description, String title) {
         this.difficulty = difficulty;
         this.duree = duree;
         this.description = description;
@@ -124,11 +153,17 @@ public class Circuit {
         this.difficulty = difficulty;
     }
 
-    public String getDuree() {
+    public long getDuree() {
         return duree;
     }
 
-    public void setDuree(String duree) {
+    public void setDuree(long duree) {
         this.duree = duree;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
 }

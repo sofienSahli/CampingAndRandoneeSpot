@@ -39,6 +39,10 @@
     <string name="records_personel">Records personel</string>
     <string name="recommend_pour_vous">Recommendé pour vous:</string>
     <string name="association_description">La conviction fondamentale de l\'Association des Amis de la forêt du Rimel consiste à préserver notre Patrimoine naturel</string>
+    <string name="channel_name">Notifications</string>
+    <string name="channel_description">Notification Test</string>
+    <string name="vitess_moyenne">Vitess Moyenne</string>
+    <string name="distance">Distance</string>
 
 
 </resources>

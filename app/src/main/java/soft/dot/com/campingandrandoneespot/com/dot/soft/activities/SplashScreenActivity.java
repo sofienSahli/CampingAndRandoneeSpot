@@ -20,6 +20,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         logo = findViewById(R.id.logo);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.logo_splash_anim);
         logo.startAnimation(animation);
+
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

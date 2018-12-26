@@ -1,12 +1,10 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.activities;
 
 import android.location.Location;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,16 +15,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.DateUtils;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.ExpandCollapsAnim;
 
 public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMapLongClickListener {
@@ -62,13 +57,12 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
         tvDistanceParcourus = findViewById(R.id.tvElpasedTime);
         tvDuree = findViewById(R.id.tvDuree);
         tvVitess = findViewById(R.id.tvVitess);
-        tvDuree.setText(circuit.getDuree());
+        tvDuree.setText(DateUtils.getTimeFromLong(circuit.getDuree()));
         float distance = calculateDistance(spots.get(0), spots.get(spots.size() - 1));
         tvDistanceParcourus.setText(distance + "Metres");
-        String s = String.valueOf(circuit.getDuree().toCharArray(), 0, 2);
-        Integer i = Integer.parseInt(s);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
-        tvVitess.setText(distance/i + "km/h");
+        tvVitess.setText(distance/circuit.getDuree() + "km/h");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Detail du circuit");

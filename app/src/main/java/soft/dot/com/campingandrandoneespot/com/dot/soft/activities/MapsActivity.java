@@ -28,7 +28,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.adapters.CustomInfoWindowGoogleMap;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;

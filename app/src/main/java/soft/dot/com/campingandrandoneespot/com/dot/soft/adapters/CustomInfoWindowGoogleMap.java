@@ -14,8 +14,8 @@ import com.google.android.gms.maps.model.Marker;
 import java.util.ArrayList;
 
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.RetrofitClient;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.RetrofitClient;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 
 public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {

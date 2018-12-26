@@ -19,6 +19,7 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.Circuit_detai
 import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.MapsActivity;
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.DateUtils;
 
 public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapters.AdapterViewHolder> {
 
@@ -48,7 +49,7 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
         holder.tvCircuitDescription.setText(circuit.getDescription());
 
 
-        holder.tvDuree.setText(circuit.getDuree());
+        holder.tvDuree.setText(DateUtils.getTimeFromLong(circuit.getDuree()));
         holder.imageView.setOnClickListener(v -> {
             MapsActivity.circuit = circuit;
             Intent intent = new Intent(context, MapsActivity.class);

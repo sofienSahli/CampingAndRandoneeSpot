@@ -40,9 +40,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.UserSharedPref;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.UserService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.UserSharedPref;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.UserService;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 
 public class LoginAcitivity extends AppCompatActivity implements View.OnClickListener, Callback<User> {

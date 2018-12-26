@@ -62,14 +62,13 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".com.dot.soft.activities.SplashScreenActivity">
 
-            <!--
-            Intent Main Activity Goes Here
+
             <intent-filter android:icon="@mipmap/ic_icone">
                  <action android:name="android.intent.action.MAIN" />
 
                  <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
-            -->
+
 
 
         </activity>
@@ -87,17 +86,25 @@
           />
         <activity android:name=".com.dot.soft.activities.FreeRaceActivity" />
         <activity android:name=".com.dot.soft.activities.FirstActivity">
-
+            <!--
             <intent-filter android:icon="@mipmap/ic_icone">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+        -->
         </activity>
         <activity
             android:name=".com.dot.soft.activities.Circuit_detail"
             android:parentActivityName=".com.dot.soft.activities.MainActivity"
+            />
+
+        <service android:name=".com.dot.soft.utils.FreeRaceJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            />
+        <receiver android:name=".com.dot.soft.utils.NotificationReciever"
+            android:enabled="true"
+            android:exported="false"
             />
     </application>
 

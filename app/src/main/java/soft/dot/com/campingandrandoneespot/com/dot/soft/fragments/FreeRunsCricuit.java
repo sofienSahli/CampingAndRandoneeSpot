@@ -7,14 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.adapters.CircuitListAdapters;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 

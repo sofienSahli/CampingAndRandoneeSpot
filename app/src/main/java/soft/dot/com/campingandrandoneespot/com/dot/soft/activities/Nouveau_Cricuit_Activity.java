@@ -52,9 +52,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.CircuitService;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.SpotService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.CircuitService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.SpotService;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.adapters.SpotListAdapter;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Difficulty;
@@ -130,7 +130,6 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
     private void instatiateCircuit() {
         circuit = new Circuit();
         circuit.setId(System.currentTimeMillis());
-        circuit.setDuree(duree);
         if (TextUtils.isEmpty(tvcircuitTitre.getText())) {
             tvcircuitTitre.setBackgroundResource(R.drawable.empty_text_field_background);
             tvcircuitTitre.setOnClickListener(v -> v.setBackground(null));
@@ -158,11 +157,10 @@ public class Nouveau_Cricuit_Activity extends AppCompatActivity implements OnMap
 
 
         }
-        if (TextUtils.isEmpty(circuit.getDuree())) {
-            circuit.setDuree("00:00");
+            circuit.setDuree(0);
             circuit.setUpdated_at("undefined");
             circuit.setCreated_at("undefined");
-        }
+
         CircuitService circuitService = new CircuitService();
         circuitService.addCircuit(this, circuit);
 

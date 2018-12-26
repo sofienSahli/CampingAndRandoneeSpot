@@ -19,8 +19,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.LocalStorage.AppDatabase;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.Services.services.CircuitService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.CircuitService;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.adapters.CircuitListAdapters;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 
