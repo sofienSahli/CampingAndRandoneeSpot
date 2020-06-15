@@ -1,0 +1,6 @@
+
+Zsquid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ
+Msquid:S2696;"6Make the enclosing method "static" or remove this set.(ÝêŸÀ
+lsquid:S00116O"TRename this field "item_body" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ùöÖ
+Šsquid:S1319"sThe type of the "circuits" object should be an interface such as "List" rather than the implementation "ArrayList".(é“œ‹
+Rsquid:S26966"6Make the enclosing method "static" or remove this set.(ÞÐ»¯ùÿÿÿÿ

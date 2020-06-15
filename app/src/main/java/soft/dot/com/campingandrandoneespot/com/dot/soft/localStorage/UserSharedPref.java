@@ -16,7 +16,7 @@ public class UserSharedPref {
     public static final String USER_LAST_NAME = "USER_LAST_NAME";
     public static final String USER_BIRTHDATE = "USER_BIRTHDATE";
     public static final String USER_PASSWRD = "USER_PASSWRD";
-    public static final String USER_ROLE = "USER_PASSWRD";
+    public static final String USER_ROLE = "USER_ROLE";
 
 
     SharedPreferences sharedPreferences;

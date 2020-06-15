@@ -1,0 +1,5 @@
+
+Lsquid:S1197"8Move the array designator from the variable to the type.(žàÁX
+Asquid:S1602",Remove useless curly braces around statement(æÕÃð
+ssquid:S00116"XRename this field "current_index" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§²œîüÿÿÿÿ
+isquid:UselessImportCheck"BRemove this unused import 'android.view.animation.Transformation'.(Ñä‘³ûÿÿÿÿ

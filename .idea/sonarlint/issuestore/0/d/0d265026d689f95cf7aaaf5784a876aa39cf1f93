@@ -1,0 +1,9 @@
+
+ysquid:S00116"\Rename this field "user_profile_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿž›þ8öÖ¶…€-
+~squid:S00116"aRename this field "user_profile_short_bio" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿž›þ8›ð¸…€-
+Psquid:S1659"4Declare "user_profile_short_bio" on a separate line.(ÿž›þ8›ð¸…€-
+zsquid:S00116"]Rename this field "user_profile_photo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Î”’Ü8öÖ¶…€-
+esquid:UselessImportCheck"7Remove this unused import 'com.facebook.GraphResponse'.(ìéÀ¦ûÿÿÿÿ8öÖ¶…€-
+_squid:UnusedPrivateMethod"0Remove this unused private "getViewById" method.(¥¥ÙŠÿÿÿÿÿ8ÎØÒ…€-
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(á”É¼8ÎØÒ…€-
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ÎØÒ…€-

@@ -1,0 +1,13 @@
+
+Isquid:S1444*"-Make this "public static circuit" field final(¼÷Š…úÿÿÿÿ
+csquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(®Åçº
+hsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(¨©áÔùÿÿÿÿ
+esquid:HiddenFieldCheckV"CRename "locationManager" which hides the field declared at line 44.(¦åÃ“
+†"squid:ClassVariableVisibilityCheck*"SMake circuit a static final constant or non-public and provide accessors if needed.(¼÷Š…úÿÿÿÿ
+=squid:S1170'"!Make this final field static too.(Ç¶öúÿÿÿÿ
+=squid:S1170("!Make this final field static too.(èó¥ªüÿÿÿÿ
+žsquid:S1186³"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(é¬“âùÿÿÿÿ
+žsquid:S1186¸"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±ìÑùÿÿÿÿ
+™squid:S1186½"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¬•çŠ
+usquid:S00116'"XRename this field "FINE_LOCATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç¶öúÿÿÿÿ
+wsquid:S00116("ZRename this field "COARSE_LOCATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èó¥ªüÿÿÿÿ

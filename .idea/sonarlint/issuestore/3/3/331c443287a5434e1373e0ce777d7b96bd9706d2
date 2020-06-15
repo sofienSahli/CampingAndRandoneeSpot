@@ -1,0 +1,22 @@
+
+™squid:S1186´"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¬•çŠ
+squid:S1186ª"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(é¬“âùÿÿÿÿ
+@squid:S1148Ô"#Use a logger to log this exception.(Âşÿâûÿÿÿÿ
+fsquid:S2095Ë"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(ªíğù
+ssquid:S00116P"VRename this field "select_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÒâııÿÿÿÿ
+Q"squid:SwitchLastCaseIsDefaultCheck“""Add a default case to this switch.(‘¨Ûğ
+Fsquid:S1659M"/Declare "tvPostDescription" on a separate line.(ü½ğâ
+squid:S1186¯"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±ìÑùÿÿÿÿ
+esquid:S00101?"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(îİÄ¼
+wsquid:S00116I"ZRename this field "COARSE_LOCATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èó¥ªüÿÿÿÿ
+Osquid:S1068I"3Remove this unused "COARSE_LOCATION" private field.(èó¥ªüÿÿÿÿ
+@squid:S1148•"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Csquid:S1659M",Declare "tvcircuitTitre" on a separate line.(ü½ğâ
+csquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(íâö·
+lsquid:MaximumInheritanceDepth?"<This class has 7 parents which is greater than 5 authorized.(îİÄ¼8Ê¹£‰…-
+=squid:S1170I"!Make this final field static too.(èó¥ªüÿÿÿÿ
+^
+squid:S899Ê"BDo something with the "boolean" value returned by "createNewFile".(ôü¿Ÿÿÿÿÿÿ
+gsquid:CommentedOutCodeLineL"<This block of commented-out lines of code should be removed.(çú·£ÿÿÿÿÿ
+usquid:S00116H"XRename this field "FINE_LOCATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç¶öúÿÿÿÿ
+=squid:S1170H"!Make this final field static too.(Ç¶öúÿÿÿÿ

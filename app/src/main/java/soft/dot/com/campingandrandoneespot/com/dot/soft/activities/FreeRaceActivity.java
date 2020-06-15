@@ -20,6 +20,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -55,15 +56,18 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.ExpandCollapsAnim;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.FreeRaceJobService;
 
 public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleMap.OnMapLongClickListener, LocationListener, View.OnClickListener, Chronometer.OnChronometerTickListener {
+        GoogleMap.OnMapLongClickListener, View.OnClickListener, Chronometer.OnChronometerTickListener {
     private static final int JOB_SERVICE_ID = 12;
+  //  private static final int JOB_PERIODICITY = 16000;
+
+
     LocationManager locationManager;
     GoogleMap map;
     private final int FINE_LOCATION = 101;
     boolean isSarted = false;
     Button demarrer;
     Chronometer elpased_time;
-    boolean isFirstTime = true;
+
     Circuit circuit;
     public static final String CHANNEL_ID = "101";
 
@@ -77,9 +81,6 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
         supportMapFragment.getMapAsync(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             getRuntimePermission(new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
-        } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
-
         }
 
         findViewById(R.id.save).setOnClickListener(this);
@@ -92,10 +93,6 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode == FINE_LOCATION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, this);
-
-        }
 
     }
 
@@ -104,61 +101,39 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
         ActivityCompat.requestPermissions(this, s1, FINE_LOCATION);
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
 
-        if (isSarted) {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
-            MarkerOptions currentMarker = new MarkerOptions()
-                    .title("Last Known Location")
-                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-
-            map.addMarker(currentMarker);
-            Spot spot = new Spot();
-            spot.setId(System.currentTimeMillis());
-            spot.setCircuit_id(circuit.getId());
-            spot.setCircuit(circuit);
-            spot.setDescription("Free race point");
-            spot.setImage_url("Not attriuable");
-            spot.setLatitude(location.getLatitude());
-            spot.setLongitude(location.getLongitude());
-            circuit.getSpots().add(spot);
-            updateSpeedDistanceUI(location);
-
-        }
-
-
-    }
-
-    private void updateSpeedDistanceUI(Location location) {
+    private void updateSpeedDistanceUI() {
         if (circuit.getSpots().size() > 2) {
             int i = circuit.getSpots().size() - 1;
+
             Location location1 = new Location("");
             location1.setLongitude(circuit.getSpots().get(i).getLongitude());
             location1.setLatitude(circuit.getSpots().get(i).getLatitude());
+            Location location = new Location("");
+            location.setLongitude(circuit.getSpots().get(0).getLongitude());
+            location.setLatitude(circuit.getSpots().get(0).getLatitude());
+
+
             String distance = location.distanceTo(location1) + "M";
             TextView tv = findViewById(R.id.tv_distance);
             tv.setText(distance);
+        }
+    }
 
-
+    private void UpdateCircuitsData() {
+        if (this.circuit != null) {
+            this.circuit.setSpots((ArrayList<Spot>) AppDatabase.getAppDatabase(this).spotDao().findSpotsForCircuit(circuit.getId()));
         }
     }
 
     @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
+    public void onResume() {
+        super.onResume();
+        UpdateCircuitsData();
 
+        Log.e("tag", "resumed");
     }
 
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
 
     @Override
     public void onMapLongClick(LatLng latLng) {
@@ -177,36 +152,17 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
             ExpandCollapsAnim.expand(findViewById(R.id.elpased_time));
             isSarted = !isSarted;
             if (isSarted) {
-                demarrer.setBackgroundColor(getResources().getColor(R.color.bleu));
-                demarrer.setTextColor(getResources().getColor(R.color.colorWhite));
-                demarrer.setText("Enregistrement du Circuit");
-                if (isFirstTime) {
-                    isFirstTime = false;
-                    elpased_time.setBase(SystemClock.elapsedRealtime());
-                    instantiateCircuit();
-                    showNotification();
-                    startRecording();
-                }
+
+                elpased_time.setBase(SystemClock.elapsedRealtime());
+                instantiateCircuit();
+                startJobService();
+                showRecordingUI();
                 elpased_time.start();
-
-
-            } else {
-                demarrer.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                demarrer.setTextColor(getResources().getColor(R.color.bleu));
-                demarrer.setText("Sauvegarde mise en pause");
-                showElapsedTime();
-                elpased_time.stop();
             }
 
         } else if (view.getId() == R.id.save) {
             long passedTime = getElpaseTime();
-                /*
-                    String time = String.format("%02d min, %02d sec",
-                    TimeUnit.MILLISECONDS.toMinutes(passedTime),
-                    TimeUnit.MILLISECONDS.toSeconds(passedTime) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(passedTime))
-                    );
-                    */
+
             circuit.setDuree(passedTime);
             if (AppDatabase.getAppDatabase(this).circuitDAO().findById(circuit.getId()) == null) {
                 AppDatabase.getAppDatabase(this).circuitDAO().insertCircuit(circuit);
@@ -214,11 +170,16 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
             }
             Toast.makeText(this, "Parcours sauvegardée", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+            scheduler.cancel(JOB_SERVICE_ID);
+            this.finish();
+//            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+
         }
     }
 
-    private void startRecording() {
+    // Animate UI
+    private void showRecordingUI() {
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fad_in);
         LinearLayout linearLayout = findViewById(R.id.ll_circuit_details);
@@ -250,15 +211,15 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     // TODO recheck
-    private void showNotification() {
+    private void startJobService() {
         createNotificationChannel();
-
         ComponentName name = new ComponentName(this, FreeRaceJobService.class);
         PersistableBundle bundle = new PersistableBundle();
         bundle.putLong(FreeRaceJobService.CIRCUI_KEY, circuit.getId());
-        JobInfo jobInfo = new JobInfo.Builder(JOB_SERVICE_ID, name).setExtras(bundle).setRequiresCharging(true).build();
+        JobInfo jobInfo = new JobInfo.Builder(JOB_SERVICE_ID, name).setExtras(bundle).setRequiresCharging(false).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).build();
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         scheduler.schedule(jobInfo);
+
     }
 
     private long getElpaseTime() {

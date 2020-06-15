@@ -1,0 +1,4 @@
+
+Gsquid:S1481#"+Remove this unused "spotId" local variable.(Ô»¹şÿÿÿÿ
+Vsquid:S1854#":Remove this useless assignment to local variable "spotId".(Ô»¹şÿÿÿÿ
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öµƒøÿÿÿÿ

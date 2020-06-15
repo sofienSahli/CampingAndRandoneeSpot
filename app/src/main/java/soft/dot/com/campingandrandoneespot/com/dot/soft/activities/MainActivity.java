@@ -20,8 +20,11 @@ import android.view.animation.AnimationUtils;
 
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.CircuitListFragment;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.FauneFragment;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.FloreFragment;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.ProfilFragment;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemReselectedListener {
+public class MainActivity extends AppCompatActivity implements  BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     Menu menu;
@@ -31,11 +34,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.main_activity_content);
         bottomNavigationView = findViewById(R.id.menu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
         commintFragment(new CircuitListFragment());
         setupActionBar(R.layout.circuit_list);
         getWindow().setEnterTransition(new Explode());
         getWindow().setExitTransition(new Explode());
-
     }
 
     private void setupActionBar(int fragment) {
@@ -68,14 +71,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 goToNewCircuitActivity();
         }
         return true;
-
     }
 
 
-    @Override
-    public void onNavigationItemReselected(@NonNull MenuItem item) {
-
-    }
 
     public void commintFragment(Fragment fragment) {
         bottomNavigationView.setVisibility(View.VISIBLE);
@@ -87,4 +85,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.circuit:
+                commintFragment(new ProfilFragment());
+                break;
+            case R.id.flore:
+                commintFragment(new FloreFragment());
+                break;
+            case R.id.profil:
+                commintFragment(new ProfilFragment());
+                break;
+            case R.id.faune:
+                commintFragment(new FauneFragment());
+                break;
+        }
+        return true;
+    }
 }

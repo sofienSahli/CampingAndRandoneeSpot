@@ -1,0 +1,5 @@
+
+osquid:S00116"RRename this field "MAX_TAB" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÐðšÿÿÿÿÿ
+Gsquid:S1481F"+Remove this unused "intent" local variable.(–ÊÑ†ÿÿÿÿÿ
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(¯¿Ëùûÿÿÿÿ
+=squid:S1170"!Make this final field static too.(ÐÐðšÿÿÿÿÿ

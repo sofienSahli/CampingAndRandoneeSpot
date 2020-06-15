@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +25,7 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.DateUtils;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.ExpandCollapsAnim;
 
-public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMapLongClickListener {
+public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
     public final static String CIRCUIT_ID = "CIRCUIT_ID";
     public static Circuit circuit;
     private ArrayList<Spot> spots;
@@ -41,7 +42,7 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
         } else {
             spots = circuit.getSpots();
         }
-        findViewById(R.id.imageButton2).setOnClickListener(v->{
+        findViewById(R.id.imageButton2).setOnClickListener(v -> {
             ExpandCollapsAnim.collapse(findViewById(R.id.details_layout));
         });
 
@@ -54,40 +55,46 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void setUpUI() {
-        tvDistanceParcourus = findViewById(R.id.tvElpasedTime);
-        tvDuree = findViewById(R.id.tvDuree);
-        tvVitess = findViewById(R.id.tvVitess);
-        tvDuree.setText(DateUtils.getTimeFromLong(circuit.getDuree()));
-        float distance = calculateDistance(spots.get(0), spots.get(spots.size() - 1));
-        tvDistanceParcourus.setText(distance + "Metres");
+        if (!spots.isEmpty()) {
+            tvDistanceParcourus = findViewById(R.id.tvElpasedTime);
+            tvDuree = findViewById(R.id.tvDuree);
+            tvVitess = findViewById(R.id.tvVitess);
+            tvDuree.setText(DateUtils.getTimeFromLong(circuit.getDuree()));
+            float distance = calculateDistance(spots.get(0), spots.get(spots.size() - 1));
+            tvDistanceParcourus.setText(distance + "Metres");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        tvVitess.setText(distance/circuit.getDuree() + "km/h");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Detail du circuit");
-        getSupportActionBar().setWindowTitle("Detail du circuit");
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            tvVitess.setText(distance / circuit.getDuree() + "km/h");
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setTitle("Detail du circuit");
+            getSupportActionBar().setWindowTitle("Detail du circuit");
+        } else {
+            Toast.makeText(this, "Ce cricuit ne contient aucun point.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        PolylineOptions polyline = new PolylineOptions()
-                .clickable(true);
-        mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        int i=0 ;
-        for (Spot spot : spots) {
-            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(spot.getLatitude(), spot.getLongitude())));
-            marker.setTag(spot.getId());
-            polyline.add(new LatLng(spot.getLatitude(), spot.getLongitude()));
-            marker.setTitle(""+i);
-            i++;
+        if (!spots.isEmpty()) {
+            PolylineOptions polyline = new PolylineOptions()
+                    .clickable(true);
+            mMap = googleMap;
+            mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            int i = 0;
+            for (Spot spot : spots) {
+                Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(spot.getLatitude(), spot.getLongitude())));
+                marker.setTag(spot.getId());
+                polyline.add(new LatLng(spot.getLatitude(), spot.getLongitude()));
+                marker.setTitle("" + i);
+                i++;
+            }
+            mMap.setOnMapLongClickListener(this);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(spots.get(0).getLatitude(), spots.get(0).getLongitude())));
+            mMap.animateCamera(CameraUpdateFactory.zoomIn());
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 2000, null);
         }
-        mMap.setOnMapLongClickListener(this);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(spots.get(0).getLatitude(), spots.get(0).getLongitude())));
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 2000, null);
-
     }
 
     private float calculateDistance(Spot start, Spot end) {

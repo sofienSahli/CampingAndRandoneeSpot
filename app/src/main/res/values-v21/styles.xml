@@ -1,1 +1,13 @@
-<resources></resources>
+<resources>
+    <style name="MapCardTitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">#77000000</item>
+    </style>
+
+    <style name="MapCardDescription" parent="@android:style/TextAppearance">
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">#77000000</item>
+    </style>
+
+
+</resources>

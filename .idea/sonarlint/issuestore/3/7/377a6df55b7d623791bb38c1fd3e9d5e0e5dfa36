@@ -1,0 +1,12 @@
+
+\"squid:SwitchLastCaseIsDefaultCheckF""Add a default case to this switch.(øå´¡ÿÿÿÿÿ8ê›Ï„€-
+hsquid:UselessImportCheck	"=Remove this unused import 'android.support.v7.app.ActionBar'.(¬­çô8û©Ë„€-
+hsquid:UselessImportCheck">Remove this unused import 'android.support.v7.widget.Toolbar'.(à½£8û©Ë„€-
+msquid:UselessImportCheck"BRemove this unused import 'android.view.animation.AnimationUtils'.(Žžµ¬8û©Ë„€-
+qsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(Ï—³ûÿÿÿÿ8û©Ë„€-
+osquid:UselessImportCheck"?Remove this unused import 'android.support.v7.widget.CardView'.(ã£æþÿÿÿÿ8û©Ë„€-
+hsquid:S1301."KReplace this "switch" statement by "if" statements to increase readability.(©¨øK8û©Ë„€-
+nsquid:S1301F"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ8û©Ë„€-
+hsquid:UselessImportCheck"=Remove this unused import 'android.view.animation.Animation'.(õò©²8û©Ë„€-
+\"squid:SwitchLastCaseIsDefaultCheck\""Add a default case to this switch.(øå´¡ÿÿÿÿÿ8û©Ë„€-
+V"squid:SwitchLastCaseIsDefaultCheck.""Add a default case to this switch.(©¨øK8û©Ë„€-

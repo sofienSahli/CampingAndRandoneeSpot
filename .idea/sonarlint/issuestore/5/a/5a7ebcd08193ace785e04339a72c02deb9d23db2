@@ -1,0 +1,21 @@
+
+Ssquid:UselessImportCheck
+"0Remove this unused import 'android.util.Base64'.(ìÔ×[
+fsquid:S00100J"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷İ»½
+Xsquid:UselessImportCheck"5Remove this unused import 'java.io.FileOutputStream'.(˜«ªg
+Tsquid:UselessImportCheck"0Remove this unused import 'java.io.InputStream'.(¹»º
+Wsquid:UselessImportCheck	"4Remove this unused import 'android.graphics.Bitmap'.(¾ì
+]squid:UselessImportCheck":Remove this unused import 'java.io.ByteArrayOutputStream'.(Î‡È
+Msquid:UselessImportCheck")Remove this unused import 'java.io.File'.(†Ğ¥Å
+Xsquid:UselessImportCheck"4Remove this unused import 'java.io.FileInputStream'.(˜³ÉÓ
+fsquid:S00100="NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ—­÷
+fsquid:S001009"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉìÖˆ
+Vsquid:UselessImportCheck"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ
+isquid:S00117="QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ—­÷
+Tsquid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+ksquid:S00100N"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ëõ†ÿÿÿÿÿ
+nsquid:S00117N"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ëõ†ÿÿÿÿÿ
+Ysquid:UselessImportCheck"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ
+rsquid:S001167"URename this field "circuit_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•æ·µùÿÿÿÿ
+bsquid:UselessImportCheck"9Remove this unused import 'java.io.ByteArrayInputStream'.(Ëôæ±ûÿÿÿÿ
+qsquid:S00116 "TRename this field "image_url" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é…‘Áùÿÿÿÿ

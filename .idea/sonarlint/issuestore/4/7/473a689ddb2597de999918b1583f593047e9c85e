@@ -1,0 +1,7 @@
+
+U"squid:SwitchLastCaseIsDefaultChecka""Add a default case to this switch.(¼œóÛüÿÿÿÿ
+usquid:S1450"YRemove the "mIndicator" field and declare it as a local variable in the relevant methods.(Úšà”ÿÿÿÿÿ
+tsquid:S1450"XRemove the "viewPager" field and declare it as a local variable in the relevant methods.(åÙ¬Ïûÿÿÿÿ
+gsquid:S1301a"KReplace this "switch" statement by "if" statements to increase readability.(¼œóÛüÿÿÿÿ
+bsquid:CommentedOutCodeLineB"<This block of commented-out lines of code should be removed.(™Ð í
+asquid:UselessImportCheck">Remove this unused import 'android.support.v7.widget.Toolbar'.(à½£

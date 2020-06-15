@@ -1,0 +1,9 @@
+
+†squid:S1319"pThe type of the "spots" object should be an interface such as "List" rather than the implementation "ArrayList".(üÕÒ.
+Gsquid:S1659="+Declare "tvDescription" on a separate line.(ÐÆ²ûÿÿÿÿÿ
+bsquid:CommentedOutCodeLine("<This block of commented-out lines of code should be removed.(¥î´«
+gsquid:CommentedOutCodeLineV"<This block of commented-out lines of code should be removed.(¹„²ûÿÿÿÿ
+gsquid:CommentedOutCodeLineD"<This block of commented-out lines of code should be removed.(êÌÜ¾þÿÿÿÿ
+gsquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(ÚÕÉˆüÿÿÿÿ
+Dsquid:S1659="(Declare "tvLatitude" on a separate line.(ÐÆ²ûÿÿÿÿÿ
+bsquid:CommentedOutCodeLineF"<This block of commented-out lines of code should be removed.(ø³ûô

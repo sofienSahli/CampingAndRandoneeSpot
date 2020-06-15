@@ -1,0 +1,8 @@
+
+isquid:S00117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ‡âÕ
+nsquid:UselessImportCheck"ERemove this unused import 'android.arch.persistence.room.ForeignKey'.(ÉÕ·üÿÿÿÿ
+rsquid:S00116-"URename this field "updated_at" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÆËªËÿÿÿÿÿ
+msquid:S001161"URename this field "created_at" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÿÛ¾
+isquid:S00117R"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’¹ø¾
+Œsquid:S1319o"pThe type of the "spots" object should be an interface such as "List" rather than the implementation "ArrayList".(»è­ßøÿÿÿÿ
+Œsquid:S1319k"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(•öäìÿÿÿÿÿ

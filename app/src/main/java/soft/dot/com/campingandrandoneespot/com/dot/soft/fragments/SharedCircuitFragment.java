@@ -52,7 +52,7 @@ public class SharedCircuitFragment extends Fragment implements Callback<List<Cir
             Log.e("Jawou béhi Service", response.body().size() + "");
             SetUpRecyclerView((ArrayList<Circuit>) response.body());
         } else {
-            Snackbar.make(view, "Failed to acces remote server, please retry ", Snackbar.LENGTH_INDEFINITE).setAction("Retry", view -> {
+            Snackbar.make(view, "Failed to access remote server, please retry ", Snackbar.LENGTH_INDEFINITE).setAction("Retry", view -> {
                 CircuitService circuitService = new CircuitService();
                 circuitService.getAll(this);
             });

@@ -1,0 +1,29 @@
+
+qsquid:S00116"VRename this field "sign_button" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Öõ½ûÿÿÿÿ
+N"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ºÖ
+psquid:S2068"V'password' detected in this expression, review this potentially hard-coded credential.(ƒíÏÛúÿÿÿÿ
+;squid:S1170"!Make this final field static too.(ÜòæŒıÿÿÿÿ
+|squid:S1450"bRemove the "mGoogleSignInClient" field and declare it as a local variable in the relevant methods.(äáºêûÿÿÿÿ
+Asquid:S1481",Remove this unused "account" local variable.(ôÎ×
+Psquid:S1854";Remove this useless assignment to local variable "account".(ôÎ×
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(–¢î
+•squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‹ö›n
+Rsquid:S1068"8Remove this unused "google_user_password" private field.(œ¬ô€úÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Úœ‹øÿÿÿÿ
+psquid:S2068"V'password' detected in this expression, review this potentially hard-coded credential.(œ¬ô€úÿÿÿÿ
+Hsquid:S1068".Remove this unused "FB_SIGN_IN" private field.(ªŒ«Ñıÿÿÿÿ
+;squid:S1170"!Make this final field static too.(ªŒ«Ñıÿÿÿÿ
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(œƒƒ©ùÿÿÿÿ
+rsquid:S00116"WRename this field "login_button" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Öõ½ûÿÿÿÿ
+psquid:S00116"URename this field "RC_SIGN_IN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜòæŒıÿÿÿÿ
+tsquid:S1450"ZRemove the "sign_button" field and declare it as a local variable in the relevant methods.(”Öõ½ûÿÿÿÿ
+usquid:S1450"[Remove the "login_button" field and declare it as a local variable in the relevant methods.(”Öõ½ûÿÿÿÿ
+rsquid:S1450"]Remove the "facebook_login" field and declare it as a local variable in the relevant methods.(û’šÓ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(€ì‘
+osquid:S00116"YRename this field "facebook_login" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û’šÓ
+`squid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(ºÖ
+usquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(œ¬ô€úÿÿÿÿ
+Dsquid:S1659"*Declare "login_button" on a separate line.(”Öõ½ûÿÿÿÿ
+psquid:S00116"URename this field "FB_SIGN_IN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªŒ«Ñıÿÿÿÿ
+usquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ƒíÏÛúÿÿÿÿ
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(¯ŒØÆ8¹ºë„€-
