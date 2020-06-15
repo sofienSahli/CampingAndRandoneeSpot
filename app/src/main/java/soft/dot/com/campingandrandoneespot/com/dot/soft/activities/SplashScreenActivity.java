@@ -29,7 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(SplashScreenActivity.this, LoginAcitivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, FirstActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SplashScreenActivity.this).toBundle());
             }
 

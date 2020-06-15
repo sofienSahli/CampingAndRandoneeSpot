@@ -17,14 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.CircuitListFragment;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.FauneFragment;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.FloreFragment;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.ProfilFragment;
 
-public class MainActivity extends AppCompatActivity implements  BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemReselectedListener {
 
     BottomNavigationView bottomNavigationView;
     Menu menu;
@@ -34,15 +33,15 @@ public class MainActivity extends AppCompatActivity implements  BottomNavigation
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.main_activity_content);
         bottomNavigationView = findViewById(R.id.menu);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        commintFragment(new CircuitListFragment());
+        commintFragment(new FloreFragment());
         setupActionBar(R.layout.circuit_list);
         getWindow().setEnterTransition(new Explode());
         getWindow().setExitTransition(new Explode());
+
     }
 
     private void setupActionBar(int fragment) {
-        switch (fragment){
+        switch (fragment) {
             case R.layout.circuit_list:
 
                 break;
@@ -69,11 +68,22 @@ public class MainActivity extends AppCompatActivity implements  BottomNavigation
         switch (item.getItemId()) {
             case R.id.action_info:
                 goToNewCircuitActivity();
+
         }
         return true;
+
     }
 
 
+    @Override
+    public void onNavigationItemReselected(@NonNull MenuItem item) {
+        Toast.makeText(this, "aa", Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.flore:
+                commintFragment(new FloreFragment());
+                break;
+        }
+    }
 
     public void commintFragment(Fragment fragment) {
         bottomNavigationView.setVisibility(View.VISIBLE);
@@ -85,22 +95,4 @@ public class MainActivity extends AppCompatActivity implements  BottomNavigation
     }
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.circuit:
-                commintFragment(new ProfilFragment());
-                break;
-            case R.id.flore:
-                commintFragment(new FloreFragment());
-                break;
-            case R.id.profil:
-                commintFragment(new ProfilFragment());
-                break;
-            case R.id.faune:
-                commintFragment(new FauneFragment());
-                break;
-        }
-        return true;
-    }
 }

@@ -22,14 +22,15 @@ import soft.dot.com.campingandrandoneespot.R;
 
 public class FirstIntroductionFragment extends Fragment {
     ImageSwitcher imageSwitcher;
-    Context parentActivity ;
+    Context parentActivity;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        parentActivity = getActivity() ;
+        parentActivity = getActivity();
         return inflater.inflate(R.layout.fragment_introduction, container, false);
     }
-
+// TODO call Back for button read more
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         imageSwitcher = view.findViewById(R.id.imageSwitcher);
@@ -41,18 +42,18 @@ public class FirstIntroductionFragment extends Fragment {
         Animation in = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_in_left);
         imageSwitcher.setInAnimation(in);
 
-        imageSwitcher.setImageResource(R.drawable.intr1);
+        imageSwitcher.setImageResource(R.drawable.rimel_1);
         Timer t = new Timer();
         //Set the schedule function and rate
 
 
         t.scheduleAtFixedRate(new TimerTask() {
-            int ids[] = {R.drawable.intr1 , R.drawable.intr2 ,R.drawable.intr3 };
+            int ids[] = {R.drawable.rimel_1, R.drawable.rimel_2, R.drawable.rimel_3, R.drawable.rimel_4, R.drawable.rimel_5};
             int current_index = 0;
 
             public void run() {
 
-                ((AppCompatActivity)parentActivity).runOnUiThread(() -> {
+                ((AppCompatActivity) parentActivity).runOnUiThread(() -> {
                     imageSwitcher.setImageResource(ids[current_index]);
                 });
                 current_index++;

@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/flore"
+            android:id="@+id/home"
             android:icon="@drawable/flore"
-            android:title="Flore" />
+            android:title="circuit" />
 
         <item
-            android:id="@+id/circuit"
+            android:id="@+id/flore"
             android:icon="@drawable/randonne"
-            android:title="Circuit" />
+            android:title="flore" />
 
 
         <item
             android:id="@+id/profil"
             android:icon="@drawable/ic_action_profile"
-            android:title="Profile" />
+            android:title="profil" />
         <item
             android:id="@+id/faune"
             android:icon="@drawable/faune_menu"
-            android:title="Faune" />
+            android:title="faune" />
     </group>
 </menu>
