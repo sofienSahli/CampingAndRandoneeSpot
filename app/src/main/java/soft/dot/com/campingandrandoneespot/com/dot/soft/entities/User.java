@@ -37,7 +37,6 @@ public class User {
     @Expose
     @SerializedName("role")
     @ColumnInfo(name = "role")
-
     private String role;
     @Expose
     @SerializedName("birthDate")

@@ -40,5 +40,14 @@
     <string name="recommend_pour_vous">Recommendé pour vous:</string>
     <string name="association_description">L\'association les amis du Remel a pour but de preserver le patrimoin écologique de la forêt et des plages. </string>
     <string name="app_context"> La forêt du Rimel est forêt ou il y\'a principalement des arbres de pin, avec une forte concentration de porc et une finalement une vu imprenable sur la mer médiraniéen. </string>
+    <string name="title_activity_faune__flore_detail_">Faune_Flore_detail_Activity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

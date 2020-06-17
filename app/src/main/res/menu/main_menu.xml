@@ -3,22 +3,21 @@
     <group>
         <item
             android:id="@+id/home"
-            android:icon="@drawable/flore"
+            android:icon="@drawable/ic_action_home"
             android:title="circuit" />
 
-        <item
-            android:id="@+id/flore"
-            android:icon="@drawable/randonne"
-            android:title="flore" />
-
-
-        <item
-            android:id="@+id/profil"
-            android:icon="@drawable/ic_action_profile"
-            android:title="profil" />
         <item
             android:id="@+id/faune"
             android:icon="@drawable/faune_menu"
             android:title="faune" />
+        <item
+            android:id="@+id/flore"
+            android:icon="@drawable/flore"
+            android:title="flore" />
+        <item
+            android:id="@+id/profil"
+            android:icon="@drawable/ic_action_profile"
+            android:title="profil" />
+
     </group>
 </menu>

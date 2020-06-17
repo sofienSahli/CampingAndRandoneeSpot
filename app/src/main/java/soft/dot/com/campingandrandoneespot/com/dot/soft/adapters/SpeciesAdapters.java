@@ -15,15 +15,23 @@ import java.util.List;
 
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Species;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.FloreFragment;
 
 public class SpeciesAdapters extends RecyclerView.Adapter<SpeciesAdapters.Holder> {
 
     Context context;
     ArrayList<Species> list;
+    FloreFragment floreFragment;
 
     public SpeciesAdapters(ArrayList<Species> list, Context context) {
         this.list = list;
         this.context = context;
+    }
+
+    public SpeciesAdapters(ArrayList<Species> list, Context context, FloreFragment floreFragment) {
+        this.list = list;
+        this.context = context;
+        this.floreFragment = floreFragment;
     }
 
 
@@ -39,6 +47,11 @@ public class SpeciesAdapters extends RecyclerView.Adapter<SpeciesAdapters.Holder
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         holder.textView.setText(list.get(position).getTitle());
+        holder.imageView.setOnClickListener(v -> {
+            if (floreFragment != null) {
+                floreFragment.speciesClicked(list.get(position));
+            }
+        });
     }
 
     @Override

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="soft.dot.com.campingandrandoneespot">
-
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -11,7 +10,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -27,6 +25,11 @@
         android:roundIcon="@mipmap/ic_icone"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".com.dot.soft.activities.Faune_Flore_detail_Activity"
+            android:label="@string/title_activity_faune__flore_detail_"
+            android:parentActivityName=".com.dot.soft.activities.MainActivity"
+            />
         <activity
             android:name=".com.dot.soft.activities.LoginAcitivity"
             android:theme="@style/RegisterThem"
@@ -61,15 +64,11 @@
             android:name=".com.dot.soft.activities.SignUp"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".com.dot.soft.activities.SplashScreenActivity">
-
-
             <intent-filter android:icon="@mipmap/ic_icone">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
 
         <meta-data
@@ -83,7 +82,7 @@
             android:name=".com.dot.soft.activities.Nouveau_Cricuit_Activity"
             android:parentActivityName=".com.dot.soft.activities.MainActivity" />
         <activity android:name=".com.dot.soft.activities.FreeRaceActivity" />
-        <activity android:name=".com.dot.soft.activities.FirstActivity"></activity>
+        <activity android:name=".com.dot.soft.activities.FirstActivity" />
         <activity
             android:name=".com.dot.soft.activities.Circuit_detail"
             android:parentActivityName=".com.dot.soft.activities.MainActivity" />

@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "soft.dot.com.campingandrandoneespot"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 6
         versionName "6.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,11 +24,13 @@ android {
 }
 
 dependencies {
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'android.arch.navigation:navigation-ui:1.0.0'
     def room_version = "1.1.1"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.facebook.android:facebook-login:[4,5)'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.0.2'
+    implementation 'com.android.support:appcompat-v7:28.+'
 
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.google.android.gms:play-services-ads:15.0.1'

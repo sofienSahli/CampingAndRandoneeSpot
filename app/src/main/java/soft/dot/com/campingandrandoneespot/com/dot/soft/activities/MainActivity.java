@@ -23,21 +23,24 @@ import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.CircuitListFragment;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.FloreFragment;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemReselectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemReselectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     Menu menu;
+    Toolbar toolbar2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.main_activity_content);
         bottomNavigationView = findViewById(R.id.menu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
         commintFragment(new FloreFragment());
         setupActionBar(R.layout.circuit_list);
         getWindow().setEnterTransition(new Explode());
         getWindow().setExitTransition(new Explode());
-
+        toolbar2 = findViewById(R.id.toolbar2);
+        toolbar2.setTitleTextColor(getResources().getColor(R.color.bpWhite));
     }
 
     private void setupActionBar(int fragment) {
@@ -95,4 +98,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Toast.makeText(this, "aa", Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.flore:
+                commintFragment(new FloreFragment());
+                toolbar2.setTitle("Flore Du Rimel");
+
+                break;
+        }
+        return true;
+    }
 }

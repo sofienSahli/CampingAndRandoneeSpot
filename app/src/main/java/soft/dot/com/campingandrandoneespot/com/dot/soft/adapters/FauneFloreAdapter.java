@@ -1,6 +1,10 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.adapters;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import soft.dot.com.campingandrandoneespot.R;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.Faune_Flore_detail_Activity;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Item;
 
 
@@ -40,7 +45,17 @@ public class FauneFloreAdapter extends RecyclerView.Adapter<FauneFloreAdapter.Vi
         holder.textView3.setText(item.getName());
         holder.textView4.setText(item.getDescription());
         holder.button4.setOnClickListener(v -> {
-            Toast.makeText(context, "To be implemented", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, Faune_Flore_detail_Activity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Faune_Flore_detail_Activity.ITEM_DESCRIPTION, item.getDescription());
+            bundle.putInt(Faune_Flore_detail_Activity.ITEM_ID, item.getId());
+            bundle.putInt(Faune_Flore_detail_Activity.ITEMS_SPECIES_ID, item.getSpecies().getId());
+            bundle.putString(Faune_Flore_detail_Activity.ITEM_NAME, item.getName());
+            bundle.putString(Faune_Flore_detail_Activity.ITEM_SPECIES, item.getSpecies().getTitle());
+            intent.putExtras(bundle);
+            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((AppCompatActivity) context).toBundle());
+
+
         });
     }
 
