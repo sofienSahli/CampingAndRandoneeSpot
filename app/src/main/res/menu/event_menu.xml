@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/past_event"
+            android:icon="@drawable/ic_timer"
+            android:title="Ancien evenement">
+
+        </item>
+
+        <item
+            android:id="@+id/subscribed_event"
+            android:icon="@drawable/ic_timer"
+            android:iconTint="@color/colorAccent"
+            android:title="Liste d'inscription"
+
+            >
+
+        </item>
+        <item
+            android:id="@+id/proposer_event"
+            android:icon="@drawable/ic_info"
+            android:iconTint="@color/colorAccent"
+            android:title="Proposer votre idée">
+
+        </item>
+
+    </group>
+    <group>
+
+        <item
+            android:id="@+id/search_event"
+            android:icon="@drawable/ic_search_holo_light"
+            android:iconTint="@color/colorAccent"
+            android:title="Chercher">
+
+        </item>
+
+
+    </group>
+</menu>

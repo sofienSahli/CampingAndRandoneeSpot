@@ -38,6 +38,8 @@
     <string name="action_settings">Settings</string>
     <string name="records_personel">Records personel</string>
     <string name="recommend_pour_vous">Recommendé pour vous:</string>
+    <string name="association_description_2">L\'association est active depuis 2005 lorem ispum lorem ispum lorem ispum   lorem ispum lorem ispum lorem ispumlorem ispum lorem ispum lorem ispumlorem ispum lorem ispum lorem ispumlorem ispum lorem ispum lorem ispumlorem ispum lorem ispum lorem ispumlorem ispum lorem ispum lorem ispumlorem ispum lorem ispum lorem ispumlorem ispum lorem ispum lorem ispum </string>
+
     <string name="association_description">L\'association les amis du Remel a pour but de preserver le patrimoin écologique de la forêt et des plages. </string>
     <string name="app_context"> La forêt du Rimel est forêt ou il y\'a principalement des arbres de pin, avec une forte concentration de porc et une finalement une vu imprenable sur la mer médiraniéen. </string>
     <string name="title_activity_faune__flore_detail_">Faune_Flore_detail_Activity</string>
@@ -49,5 +51,16 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <array name="event_categories">
+        <item>
+            <string> Santé</string>
+        </item>
+        <item>
+            <string> Culturel</string>
+        </item>
+        <item>
+            <string> Preservation du patrimoine</string>
+        </item>
+    </array>
 
 </resources>

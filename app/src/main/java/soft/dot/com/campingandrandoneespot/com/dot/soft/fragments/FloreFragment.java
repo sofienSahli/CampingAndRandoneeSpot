@@ -10,6 +10,8 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
@@ -19,33 +21,46 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.adapters.SpeciesAdapters
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Item;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Species;
 
-public class FloreFragment extends Fragment implements SearchView.OnCloseListener, SearchView.OnQueryTextListener {
+public class FloreFragment extends Fragment implements SearchView.OnCloseListener, SearchView.OnQueryTextListener, View.OnScrollChangeListener {
     RecyclerView horizontal, vertical;
     final ArrayList<Item> list_items = new ArrayList<>();
     final ArrayList<Species> list_species = new ArrayList<>();
-
+    ScrollView horizontal_scroll_view;
     SearchView search_view;
+    public final static String IS_FONE = "fone";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.flore_fragment, container, false);
-
+        horizontal_scroll_view = view.findViewById(R.id.horizontal_scroll_view);
         horizontal = view.findViewById(R.id.species_list);
         vertical = view.findViewById(R.id.items_list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         horizontal.setLayoutManager(mLayoutManager);
+        horizontal.setOnScrollChangeListener(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         vertical.setLayoutManager(layoutManager);
-        populate_list_view();
-        search_view = view.findViewById(R.id.search_view) ;
+        prepareData();
+        search_view = view.findViewById(R.id.search_view);
         search_view.setOnCloseListener(this);
         search_view.setOnQueryTextListener(this);
+
         return view;
 
     }
 
-    public void populate_list_view() {
+    private void prepareData() {
+        if (getArguments() != null) {
+            if (getArguments().getBoolean(IS_FONE))
+                populate_list_view_faune();
+            else
+                populate_list_view_flore();
+
+        }
+    }
+
+    public void populate_list_view_flore() {
 
         list_species.add(new Species(2, "Plante"));
         list_species.add(new Species(3, "Arbre"));
@@ -59,6 +74,24 @@ public class FloreFragment extends Fragment implements SearchView.OnCloseListene
         list_items.add(new Item(6, "Pins", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(2)));
         list_items.add(new Item(7, "Pins", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(2)));
         list_items.add(new Item(8, "Pins", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(2)));
+
+        instantiateAdapter(list_species, list_items);
+
+    }
+
+    public void populate_list_view_faune() {
+        list_species.add(new Species(2, "Insecte"));
+        list_species.add(new Species(3, "Mamifére"));
+        list_species.add(new Species(1, "Chévre volante"));
+
+        list_items.add(new Item(1, "Scarabé des sables", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(0)));
+        list_items.add(new Item(2, "Serpent", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(0)));
+        list_items.add(new Item(3, "Masmoudi", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(0)));
+        list_items.add(new Item(4, "Chat sauvage", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(0)));
+        list_items.add(new Item(5, "Chien érant", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(1)));
+        list_items.add(new Item(6, "Anomaly naturel", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(2)));
+        list_items.add(new Item(7, "Faucon", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(2)));
+        list_items.add(new Item(8, "Oiseaux des murs", "Aussi connu sous le nom de zgougou cette espéce recouvre plus de 50% de la forêt du Rimel", list_species.get(2)));
 
         instantiateAdapter(list_species, list_items);
 
@@ -135,5 +168,10 @@ public class FloreFragment extends Fragment implements SearchView.OnCloseListene
 
 
         return true;
+    }
+
+    @Override
+    public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+        horizontal_scroll_view.scrollBy(i, i1);
     }
 }

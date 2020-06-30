@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 
 import soft.dot.com.campingandrandoneespot.R;
 
-public class FauneFragment extends Fragment {
+public class AssocDescriptionFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.flore_fragment, container, false);
-        return view;
+        View view = inflater.inflate(R.layout.fragment_assoc_introduction, container, false );
+        return view ;
     }
 }

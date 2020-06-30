@@ -5,29 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.widget.CardView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.CircuitListFragment;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.AssocFragment;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.FloreFragment;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.ProfilFragment;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemReselectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements  BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
-    Menu menu;
-    Toolbar toolbar2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,58 +30,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.setContentView(R.layout.main_activity_content);
         bottomNavigationView = findViewById(R.id.menu);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        commintFragment(new FloreFragment());
-        setupActionBar(R.layout.circuit_list);
         getWindow().setEnterTransition(new Explode());
         getWindow().setExitTransition(new Explode());
-        toolbar2 = findViewById(R.id.toolbar2);
-        toolbar2.setTitleTextColor(getResources().getColor(R.color.bpWhite));
-    }
-
-    private void setupActionBar(int fragment) {
-        switch (fragment) {
-            case R.layout.circuit_list:
-
-                break;
-        }
-
-    }
-
-    private void goToNewCircuitActivity() {
-
-        Intent intent = new Intent(this, Nouveau_Cricuit_Activity.class);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_info:
-                goToNewCircuitActivity();
-
-        }
-        return true;
-
+        commintFragment(new AssocFragment());
     }
 
 
-    @Override
-    public void onNavigationItemReselected(@NonNull MenuItem item) {
-        Toast.makeText(this, "aa", Toast.LENGTH_SHORT).show();
-        switch (item.getItemId()) {
-            case R.id.flore:
-                commintFragment(new FloreFragment());
-                break;
-        }
-    }
+
+
+
+
 
     public void commintFragment(Fragment fragment) {
         bottomNavigationView.setVisibility(View.VISIBLE);
@@ -100,12 +53,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(this, "aa", Toast.LENGTH_SHORT).show();
+        FloreFragment floreFragment = new FloreFragment();
+        Bundle bundle = new Bundle();
         switch (item.getItemId()) {
             case R.id.flore:
-                commintFragment(new FloreFragment());
-                toolbar2.setTitle("Flore Du Rimel");
-
+                bundle.putBoolean(FloreFragment.IS_FONE, false);
+                floreFragment.setArguments(bundle);
+                commintFragment(floreFragment);
+                break;
+            case R.id.faune:
+                bundle.putBoolean(FloreFragment.IS_FONE, true);
+                floreFragment.setArguments(bundle);
+                commintFragment(floreFragment);
+                break;
+            case R.id.home:
+                commintFragment(new AssocFragment());
+                break;
+            case R.id.profil:
+                commintFragment(new ProfilFragment());
                 break;
         }
         return true;

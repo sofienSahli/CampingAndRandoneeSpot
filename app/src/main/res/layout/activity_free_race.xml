@@ -80,7 +80,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vitess_moyenne"
+            android:text="20spa"
             android:textColor="@color/colorWhite"
             android:textSize="14sp" />
 
@@ -103,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/distance"
+            android:text="distance"
             android:textColor="@color/colorWhite" />
 
         <TextView

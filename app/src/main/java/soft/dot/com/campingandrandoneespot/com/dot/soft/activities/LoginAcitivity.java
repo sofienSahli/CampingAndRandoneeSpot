@@ -12,6 +12,7 @@ import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,25 +36,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Roles;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.UserSharedPref;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.UserService;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 
-public class LoginAcitivity extends AppCompatActivity implements View.OnClickListener, Callback<User> {
+public class LoginAcitivity extends AppCompatActivity implements View.OnClickListener, Callback<List<User>> {
     private final int RC_SIGN_IN = 101;
     private final int FB_SIGN_IN = 202;
     private CallbackManager callbackManager;
-    private LoginButton facebook_login;
-    private Button sign_button, login_button;
-    private static final String facebook_user_password = "FACEBOOK_USER";
-    private static final String google_user_password = "GOOGLE_USER";
-    private static final String USER_ROLE = "Alpha_tester";
+    LoginButton facebook_login;
+    Button sign_button, login_button;
+    EditText email_field, password_field;
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -68,8 +68,11 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
         }
         googleSignSetUp();
         setUpFacebook();
-
         setUpTransition();
+
+        email_field = findViewById(R.id.email_field);
+        password_field = findViewById(R.id.password_field);
+
         sign_button = findViewById(R.id.sign_button);
         login_button = findViewById(R.id.login_button);
         login_button.setOnClickListener(this);
@@ -131,13 +134,15 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
     private void updateUI(GoogleSignInAccount account) {
         User user = new User();
         user.setLastName(account.getFamilyName());
-        user.setFirstName(account.getFamilyName());
-        user.setPassword("Not needed");
+        user.setFirstName(account.getGivenName());
         user.setEmail(account.getEmail());
-        user.setRole(USER_ROLE);
-
-        Log.e("user", account.getId());
-        registerNewUser(user);
+        user.setRole(Roles.SIMPLE_USER);
+        Log.e("user", account.toJson());
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(SignUp.USER_KEY, user);
+        Intent intent = new Intent(this, SignUp.class);
+        intent.putExtras(bundle);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @Override
@@ -147,7 +152,7 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
 
     private void setUpFacebook() {
         FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+        AppEventsLogger.activateApp(getApplication());
         callbackManager = CallbackManager.Factory.create();
         facebook_login = findViewById(R.id.facebook_login);
         facebook_login.setReadPermissions(Arrays.asList("email"));
@@ -155,7 +160,6 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
         facebook_login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(LoginAcitivity.this, loginResult.getAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
 
 
                 GraphRequest request = GraphRequest.newMeRequest(
@@ -167,9 +171,7 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
                                 //Log.e("Graph Response " , object.toString());
                                 userFromFacebook(object);
                             } else {
-                                Toast.makeText(LoginAcitivity.this, "Graph is null", Toast.LENGTH_SHORT).show();
-                                Log.e("Graph Response ", response.getError().toString());
-
+                                Toast.makeText(LoginAcitivity.this, "Echec de l'utilisation de votre compte facebook, veuilliez utiliser une autre méthode.", Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -198,87 +200,72 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
 
     //Handle user information from facebook
     private void userFromFacebook(JSONObject object) {
-        Log.e("FacebookGraph", object.toString());
         try {
 
             User user = new User();
-            user.setId(object.getLong("id"));
-            //user.setBirthDate(object.getString("birthday"));
-            user.setBirthDate("Undefined");
-            user.setPassword(facebook_user_password);
             user.setFirstName(object.getString("first_name"));
             user.setLastName(object.getString("last_name"));
-            user.setRole(USER_ROLE);
-            user.setEmail("email");
-            registerNewUser(user);
+            user.setRole(Roles.SIMPLE_USER);
+            user.setEmail(object.getString("email"));
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(SignUp.USER_KEY, user);
+            Intent intent = new Intent(this, SignUp.class);
+            intent.putExtras(bundle);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         } catch (JSONException e) {
             Log.e("FacebookGraph", e.getMessage());
         }
     }
 
-    // Screw another one :p
-    User u;
-
-    private void registerNewUser(User user) {
-        u = AppDatabase.getAppDatabase(this).userDAO().findById(user.getId());
-        if (u == null) {
-            u = user;
-            UserService userService = new UserService();
-            userService.SignUpUser(user, this);
-        } else {
-            UserSharedPref userSharedPref = new UserSharedPref(this.getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
-            userSharedPref.logIn(user);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-
-    }
-
-    @Override
-    public void onResponse(Call<User> call, Response<User> response) {
-        if (response.code() == 200) {
-            UserSharedPref userSharedPref = new UserSharedPref(this.getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
-            userSharedPref.logIn(response.body());
-            AppDatabase.getAppDatabase(this).userDAO().insertUser(response.body());
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
-        }
-        if (response.code() == 500) {
-
-            UserSharedPref userSharedPref = new UserSharedPref(this.getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
-            userSharedPref.logIn(u);
-            AppDatabase.getAppDatabase(this).userDAO().insertUser(u);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
-        }
-    }
-
-    @Override
-    public void onFailure(Call<User> call, Throwable t) {
-
-        Toast.makeText(this, "Zid hawel", Toast.LENGTH_SHORT).show();
-
-    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_button:
-                Intent i = new Intent(LoginAcitivity.this, MainActivity.class);
-                startActivity(i, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-
+                if (!TextUtils.isEmpty(email_field.getText()) && !TextUtils.isEmpty(password_field.getText())) {
+                    sign_in(email_field.getText().toString(), password_field.getText().toString());
+                }
                 break;
             case R.id.sign_button:
                 ImageView background = findViewById(R.id.background);
                 Intent intent = new Intent(LoginAcitivity.this, SignUp.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, background, "background").toBundle());
-
                 break;
         }
     }
 
+    private void sign_in(String toString, String toString1) {
+        UserService userService = new UserService();
+        userService.logIn(toString1, toString, this);
+    }
 
+
+    @Override
+    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+        if (response.code() == 200 && response.body().size() > 0) {
+
+
+            if (response.body().get(0) != null) {
+                if (response.body().get(0).isActive() ) {
+                    UserSharedPref userSharedPref = new UserSharedPref(getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
+                    userSharedPref.logIn(response.body().get(0));
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    Toast.makeText(this, "Account not activated yet", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            Toast.makeText(this, "Veuilliez vérifier vos identifiant", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    public void onFailure(Call<List<User>> call, Throwable t) {
+        Log.e("Login failed", t.getMessage());
+        Toast.makeText(this, "Veuilliez vérifier vos identifiant", Toast.LENGTH_SHORT).show();
+
+    }
 }

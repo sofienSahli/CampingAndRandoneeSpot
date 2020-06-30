@@ -17,6 +17,8 @@ public class UserSharedPref {
     public static final String USER_BIRTHDATE = "USER_BIRTHDATE";
     public static final String USER_PASSWRD = "USER_PASSWRD";
     public static final String USER_ROLE = "USER_ROLE";
+    public static final String USER_PHONE = "USER_PHONE";
+    public static final String USER_PROFILE_PICTURE = "USER_PICTURE";
 
 
     SharedPreferences sharedPreferences;
@@ -45,7 +47,7 @@ public class UserSharedPref {
     }
 
     public String getString(String label) {
-        return sharedPreferences.getString(label, "");
+        return sharedPreferences.getString(label,"");
     }
 
     public boolean insertInt(String label, int newInt) {
@@ -97,11 +99,12 @@ public class UserSharedPref {
         insertString(UserSharedPref.USER_BIRTHDATE, user.getBirthDate());
         insertString(UserSharedPref.USER_ROLE, user.getBirthDate());
         inserLong(UserSharedPref.USER_ID, user.getId());
+        inserLong(UserSharedPref.USER_PHONE, user.getPhone());
 
     }
 
     public boolean isUserLogged() {
-        if (getInt(USER_ID) != -1)
+        if (getLong(USER_ID) != -1)
             return true;
         else
             return false;

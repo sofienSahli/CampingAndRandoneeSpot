@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "soft.dot.com.campingandrandoneespot"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 6
         versionName "6.0"
@@ -28,7 +28,7 @@ dependencies {
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
     def room_version = "1.1.1"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.facebook.android:facebook-login:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.+'
 
