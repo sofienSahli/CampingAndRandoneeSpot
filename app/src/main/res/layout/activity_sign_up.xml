@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/register_form_backgroun">
+    android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,8 +18,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:alpha=".7"
+            android:padding="8dp"
             android:text="Numero de telephone"
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
@@ -31,8 +31,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:alpha=".7"
+            android:padding="8dp"
             android:text="Prenom"
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phone" />
 
@@ -43,8 +44,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:alpha=".7"
+            android:padding="8dp"
             android:text="Nom de famille "
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/prenom" />
 
@@ -55,8 +57,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:alpha=".7"
+            android:padding="8dp"
             android:text="Address E-mail"
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -67,8 +70,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:alpha=".7"
+            android:padding="8dp"
             android:text="Date de naissance"
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_field" />
 
@@ -79,8 +83,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:alpha=".7"
+            android:padding="8dp"
             android:text="Mot de passe"
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/birth_date" />
 
@@ -95,8 +100,7 @@
             android:hint="Telephone"
             android:inputType="number"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -112,8 +116,7 @@
             android:hint="Prenom"
             android:inputType="textPersonName"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -129,8 +132,7 @@
             android:hint="Nom"
             android:inputType="textPersonName"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -146,8 +148,7 @@
             android:hint="E-mail"
             android:inputType="textEmailAddress"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -156,8 +157,8 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@android:color/white"
-            android:elevation="16dp"
+            android:background="@drawable/register_form_backgroun"
+            android:elevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -168,12 +169,12 @@
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:padding="8dp"
-                android:src="@drawable/ic_back"
-                android:tint="@color/colorAccent"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:tint="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/ic_back" />
+                tools:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
             <ImageButton
                 android:id="@+id/sign_up"
@@ -182,7 +183,7 @@
                 android:background="@android:color/transparent"
                 android:padding="8dp"
                 android:src="@drawable/ic_add_done"
-                android:tint="@color/colorAccent"
+                android:tint="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -193,11 +194,14 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Inscription "
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:typeface="sans"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -214,7 +218,6 @@
             android:hint="Mot de passe"
             android:inputType="textPassword"
             android:textAlignment="center"
-            android:textColorHint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -230,7 +233,6 @@
             android:hint="Confirmer mot de passe"
             android:inputType="textPassword"
             android:textAlignment="center"
-            android:textColorHint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -247,7 +249,8 @@
             android:text="Date de naissance"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView19" />

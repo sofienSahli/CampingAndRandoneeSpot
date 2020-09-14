@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/register_form_backgroun">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -27,23 +26,24 @@
             android:id="@+id/background"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            app:srcCompat="@drawable/logo_rimel" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="Randonne et  Camping"
-            android:textColor="@color/colorWhite"
-            android:textSize="25sp"
+            android:padding="8dp"
+            android:text="Les amis du Remel"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
             android:typeface="serif"
             tools:fontFamily="@font/alegreya" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/colorWhite"
             android:visibility="visible">
 
             <EditText
@@ -52,21 +52,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:drawableStart="@android:drawable/ic_dialog_email"
-                android:drawableTint="@color/colorWhite"
+                android:drawableTint="@color/colorAccent"
                 android:gravity="center"
-                android:hint="Username or E-mail"
+                android:hint="Adress e-mail"
                 android:inputType="textEmailAddress"
                 android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorWhite"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/colorWhite"
             android:visibility="visible"
 
             >
@@ -77,42 +74,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:drawableStart="@android:drawable/ic_lock_lock"
-                android:drawableTint="@color/colorWhite"
+                android:drawableTint="@color/colorAccent"
                 android:gravity="center"
-                android:hint="Password"
+                android:hint="Mot de passe"
                 android:inputType="textPassword"
                 android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorWhite"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="32dp"
             android:layout_marginVertical="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/bleu"
-            android:padding="0dp"
-            android:text="Login"
+            android:background="@color/colorPrimaryDark"
+            android:text="Se connecter"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
 
         <Button
             android:id="@+id/sign_button"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="32dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/bleu"
-            android:padding="0dp"
-            android:text="SignUp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Inscription"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
 
         <com.facebook.login.widget.LoginButton
@@ -121,7 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="10dp"
+            android:visibility="gone" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
@@ -129,7 +125,8 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="10dp"
+            android:visibility="gone" />
     </LinearLayout>
 
 

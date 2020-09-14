@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -53,6 +54,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private boolean isLoggedIn() {
         UserSharedPref userSharedPref = new UserSharedPref(getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
+        Log.e("User Nam " , userSharedPref.getString(UserSharedPref.EMAIL ));
         return userSharedPref.isUserLogged();
+
     }
 }

@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,15 +38,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.R;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.SplashScreenActivity;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.UserSharedPref;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.services.RetrofitClient;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.UserService;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ProfilFragment extends Fragment implements View.OnClickListener, Callback {
+public class ProfilFragment extends Fragment implements View.OnClickListener, Callback<ResponseBody> {
     ImageView imageView10;
-    TextView user_profile_name, user_profile_short_bio;
+    TextView user_profile_name, phone, email;
     static final int IMAGE_GALERIE = 202;
     private int READ_STORAGE = 101;
     private int WRITE_STORAGE = 101;
@@ -59,6 +59,8 @@ public class ProfilFragment extends Fragment implements View.OnClickListener, Ca
         imageView10 = view.findViewById(R.id.imageView10);
         imageView10.setOnClickListener(this);
         user_profile_name = view.findViewById(R.id.name);
+        phone = view.findViewById(R.id.phone);
+        email = view.findViewById(R.id.email);
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             getRuntimePermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_STORAGE);
         }
@@ -66,10 +68,18 @@ public class ProfilFragment extends Fragment implements View.OnClickListener, Ca
             getRuntimePermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE);
         }
         UserSharedPref userSharedPref = new UserSharedPref(getActivity().getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
-        if (TextUtils.isEmpty(userSharedPref.getString(UserSharedPref.USER_PROFILE_PICTURE)))
-            get_profile_picture();
-        else
-            Picasso.with(getActivity()).load(userSharedPref.getString(UserSharedPref.USER_PROFILE_PICTURE)).into(imageView10);
+
+        get_profile_picture();
+        String s = userSharedPref.getString(UserSharedPref.USER_FIRST_NAME) + " " + userSharedPref.getString(UserSharedPref.USER_LAST_NAME);
+        user_profile_name.setText(s);
+        s = userSharedPref.getLong(UserSharedPref.USER_PHONE) + " ";
+        phone.setText(s);
+        email.setText(userSharedPref.getString(UserSharedPref.EMAIL));
+        view.findViewById(R.id.button11).setOnClickListener(v -> {
+            userSharedPref.logOutUser();
+            Intent intent = new Intent(getActivity(), SplashScreenActivity.class);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+        });
 
         return view;
     }
@@ -153,24 +163,12 @@ public class ProfilFragment extends Fragment implements View.OnClickListener, Ca
     private void upload_image(String selectedImage) {
         File f = new File(selectedImage);
         RequestBody filePart = RequestBody.create(MediaType.parse("file"), f);
-
         UserService userService = new UserService();
         UserSharedPref userSharedPref = new UserSharedPref(getActivity().getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
         userService.set_profile_picture(this, "image", userSharedPref.getLong(UserSharedPref.USER_ID), filePart);
-
+        userSharedPref.insertString(UserSharedPref.USER_PROFILE_PICTURE, selectedImage);
     }
 
-    @Override
-    public void onResponse(Call call, Response response) {
-        if (response.code() == 200) {
-            Toast.makeText(getActivity(), "Image Uploaded", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onFailure(Call call, Throwable t) {
-        Log.e("Upload erreur", t.getMessage());
-    }
 
     public String getPathFromURI(Uri ContentUri) {
         String res = null;
@@ -193,4 +191,30 @@ public class ProfilFragment extends Fragment implements View.OnClickListener, Ca
         ActivityCompat.requestPermissions(getActivity(), s1, code);
     }
 
+    @Override
+    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        if (response.code() == 200) {
+            try {
+                if (response.body().string().equals("not"))
+                    Toast.makeText(getActivity(), "Echec de l'action veuilliez ressayer", Toast.LENGTH_SHORT).show();
+                else {
+                    UserSharedPref userSharedPref = new UserSharedPref(getActivity().getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
+                    String image = RetrofitClient.BASE_URL + response.body().string();
+                    Log.e("xxxx", response.body().string());
+                    userSharedPref.insertString(UserSharedPref.USER_PROFILE_PICTURE, image);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(getActivity(), "Echec de l'action veuilliez ressayer", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onFailure(Call<ResponseBody> call, Throwable t) {
+        Log.e("Upload failed", t.getMessage());
+    }
 }

@@ -36,7 +36,7 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circuit_detail);
-        if (circuit.getSpots().isEmpty()) {
+        if (circuit != null && circuit.getSpots().isEmpty()) {
             spots = (ArrayList<Spot>) AppDatabase.getAppDatabase(this).spotDao().findSpotsForCircuit(circuit.getId());
 
         } else {
@@ -68,7 +68,7 @@ public class Circuit_detail extends AppCompatActivity implements OnMapReadyCallb
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setTitle("Detail du circuit");
-            getSupportActionBar().setWindowTitle("Detail du circuit");
+            getSupportActionBar().setTitle("Detail du circuit");
         } else {
             Toast.makeText(this, "Ce cricuit ne contient aucun point.", Toast.LENGTH_SHORT).show();
         }

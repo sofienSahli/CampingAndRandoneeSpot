@@ -26,7 +26,9 @@ public class RetrofitClient extends AppCompatActivity {
     //public static final String BASE_URL = "http://10.0.2.2:8000/";
    // public static final String BASE_URL = "http://54.38.188.166/";
     //public static final String BASE_URL = "http://192.168.1.2:8000/";
-    public static final String BASE_URL = "http://192.168.3.140:8000/";
+   // public static final String BASE_URL = "http://192.168.3.140:8000/";
+    //public static final String BASE_URL = "http://192.168.3.136:8000/";
+    public static final String BASE_URL = "http://192.168.1.3:8000/";
 
     protected Retrofit retrofit;
 
@@ -52,14 +54,16 @@ public class RetrofitClient extends AppCompatActivity {
                 .build();
     }
     private static final TypeAdapter<Boolean> booleanAsIntAdapter = new TypeAdapter<Boolean>() {
-        @Override public void write(JsonWriter out, Boolean value) throws IOException {
+        @Override
+        public void write(JsonWriter out, Boolean value) throws IOException {
             if (value == null) {
                 out.nullValue();
             } else {
                 out.value(value);
             }
         }
-        @Override public Boolean read(JsonReader in) throws IOException {
+        @Override
+        public Boolean read(JsonReader in) throws IOException {
             JsonToken peek = in.peek();
             switch (peek) {
                 case BOOLEAN:

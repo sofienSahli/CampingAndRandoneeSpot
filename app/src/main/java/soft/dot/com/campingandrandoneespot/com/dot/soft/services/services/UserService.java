@@ -46,7 +46,7 @@ public class UserService {
         call.enqueue(callback);
     }
 
-    public void set_profile_picture(Callback callback, String type, long owner_id, RequestBody filePart) {
+    public void set_profile_picture(Callback<ResponseBody> callback, String type, long owner_id, RequestBody filePart) {
         RetrofitClient retrofitClient = new RetrofitClient();
         IUserServices iCircuitServices = retrofitClient.getRetrofit().create(IUserServices.class);
         MultipartBody.Part file = MultipartBody.Part.createFormData("n", "n", filePart);

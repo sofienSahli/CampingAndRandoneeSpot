@@ -51,6 +51,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="map_key">pk.eyJ1Ijoic29maWVuc2FobGkiLCJhIjoiY2tkN2JoczZrMDRiODJ5azZlMGR6enp2byJ9.VikuY1WPNabxugaCQ7Ql3Q</string>
     <array name="event_categories">
         <item>
             <string> Santé</string>

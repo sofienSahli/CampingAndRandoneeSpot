@@ -29,7 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".com.dot.soft.activities.AccountActivationActivity"></activity>
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+        <activity android:name=".com.dot.soft.activities.AccountActivationActivity"/>
         <activity
             android:name=".com.dot.soft.activities.NewEventActivity"
             android:parentActivityName=".com.dot.soft.activities.MainActivity" />
@@ -96,6 +98,9 @@
         <activity
             android:name=".com.dot.soft.activities.Circuit_detail"
             android:parentActivityName=".com.dot.soft.activities.MainActivity" />
+        <service android:name=".com.dot.soft.utils.FreeRaceJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
     </application>
 
 </manifest>

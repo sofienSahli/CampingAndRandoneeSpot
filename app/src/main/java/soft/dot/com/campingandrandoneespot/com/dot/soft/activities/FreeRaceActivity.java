@@ -1,9 +1,6 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.activities;
 
 import android.Manifest;
-import android.app.ActivityOptions;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -11,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,72 +18,70 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.UserSharedPref;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.UserSharedPref;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.ExpandCollapsAnim;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.FreeRaceJobService;
 
-public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleMap.OnMapLongClickListener, View.OnClickListener, Chronometer.OnChronometerTickListener {
+public class FreeRaceActivity extends AppCompatActivity implements
+        View.OnClickListener, Chronometer.OnChronometerTickListener, OnMapReadyCallback {
     private static final int JOB_SERVICE_ID = 12;
   //  private static final int JOB_PERIODICITY = 16000;
 
 
     LocationManager locationManager;
-    GoogleMap map;
     private final int FINE_LOCATION = 101;
     boolean isSarted = false;
     Button demarrer;
     Chronometer elpased_time;
+    private MapView mapView;
 
     Circuit circuit;
     public static final String CHANNEL_ID = "101";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Mapbox.getInstance(this, getString(R.string.map_key));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_free_race);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapView2);
-        supportMapFragment.getMapAsync(this);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             getRuntimePermission(new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
         }
-
+        setUpView(savedInstanceState);
         findViewById(R.id.save).setOnClickListener(this);
         demarrer = findViewById(R.id.demarrer);
         demarrer.setOnClickListener(this);
         elpased_time = findViewById(R.id.elpased_time);
         elpased_time.setOnChronometerTickListener(this);
+    }
+
+    private void setUpView(Bundle savedInstanceState) {
+    mapView = findViewById(R.id.mapView);
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
     }
 
     @Override
@@ -135,15 +129,6 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
 
-    @Override
-    public void onMapLongClick(LatLng latLng) {
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-    }
 
     @Override
     public void onClick(View view) {
@@ -269,5 +254,10 @@ public class FreeRaceActivity extends AppCompatActivity implements OnMapReadyCal
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
        */ }
+    }
+
+    @Override
+    public void onMapReady(@androidx.annotation.NonNull MapboxMap mapboxMap) {
+
     }
 }

@@ -12,7 +12,7 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Species;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 
-@Database(entities = {Spot.class, Circuit.class, User.class}, version = 9, exportSchema = false)
+@Database(entities = {Spot.class, Circuit.class, User.class}, version = 10, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

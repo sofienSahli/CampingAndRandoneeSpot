@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -62,7 +61,7 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.login_activity);
         UserSharedPref userSharedPref = new UserSharedPref(getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
 
-        if (!TextUtils.isEmpty(userSharedPref.getString(UserSharedPref.USER_FIRST_NAME))) {
+        if (userSharedPref.isUserLogged()) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
@@ -228,9 +227,8 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.sign_button:
-                ImageView background = findViewById(R.id.background);
                 Intent intent = new Intent(LoginAcitivity.this, SignUp.class);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, background, "background").toBundle());
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
         }
     }
@@ -247,7 +245,7 @@ public class LoginAcitivity extends AppCompatActivity implements View.OnClickLis
 
 
             if (response.body().get(0) != null) {
-                if (response.body().get(0).isActive() ) {
+                if (response.body().get(0).isActive()) {
                     UserSharedPref userSharedPref = new UserSharedPref(getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
                     userSharedPref.logIn(response.body().get(0));
                     Intent intent = new Intent(this, MainActivity.class);

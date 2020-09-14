@@ -36,7 +36,6 @@ public class FreeRaceJobService extends JobService implements LocationListener {
     NotificationCompat.Builder mBuilder;
 
     public FreeRaceJobService(){
-
     }
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
@@ -47,7 +46,7 @@ public class FreeRaceJobService extends JobService implements LocationListener {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return false;
         } else {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
         }
         long id = jobParameters.getExtras().getLong(CIRCUI_KEY);
         Toast.makeText(this, "id : " + id  , Toast.LENGTH_SHORT).show();

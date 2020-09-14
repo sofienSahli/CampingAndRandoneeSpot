@@ -19,13 +19,14 @@ public interface SpotDAO {
     void insertAllSpot(List<Spot> spots);
 
     @Delete
-    void deleteCircuit(Spot circuit);
+    void deleteSpot(Spot spot);
+
 
     @Update
     void updateCircuit(Spot circuit);
 
-    @Query("Delete  from circuit ")
-    void clearTable();
+    @Query("Delete  from spot where circuit_id = :circuit_id ")
+    void delete_by_circuit_id(long circuit_id);
 
     @Query("Select * from spot where id= :id")
     Spot findById(long id);

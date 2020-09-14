@@ -4,20 +4,26 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_action_home"
-            android:title="circuit" />
+            android:title="Association" />
 
         <item
             android:id="@+id/faune"
             android:icon="@drawable/faune_menu"
-            android:title="faune" />
+            android:title="Faune" />
         <item
             android:id="@+id/flore"
             android:icon="@drawable/flore"
-            android:title="flore" />
+            android:title="Flore" />
+
+        <item
+            android:id="@+id/circuit"
+            android:icon="@drawable/ic_action_map"
+            android:title="Circuit" />
         <item
             android:id="@+id/profil"
             android:icon="@drawable/ic_action_profile"
-            android:title="profil" />
+            android:title="Profil" />
+
 
     </group>
 </menu>

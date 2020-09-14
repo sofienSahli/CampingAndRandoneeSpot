@@ -47,7 +47,7 @@ public class UserSharedPref {
     }
 
     public String getString(String label) {
-        return sharedPreferences.getString(label,"");
+        return sharedPreferences.getString(label, "");
     }
 
     public boolean insertInt(String label, int newInt) {
@@ -104,9 +104,10 @@ public class UserSharedPref {
     }
 
     public boolean isUserLogged() {
-        if (getLong(USER_ID) != -1)
-            return true;
-        else
-            return false;
+        return getLong(USER_ID) != -1L;
+    }
+
+    public void logOutUser() {
+        sharedPreferences.edit().clear().apply();
     }
 }
