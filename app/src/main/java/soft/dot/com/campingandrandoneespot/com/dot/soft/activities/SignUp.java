@@ -7,10 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -34,6 +34,7 @@ import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Roles;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.UserService;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.utils.ProgressDialog;
 
 public class SignUp extends AppCompatActivity implements Callback<User> {
     EditText email_field, name, password_field, confirm_password_field, phone, prenom;
@@ -45,7 +46,7 @@ public class SignUp extends AppCompatActivity implements Callback<User> {
     public final static String USER_KEY = "user";
     ScrollView scroll_view;
     User user;
-
+     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +87,7 @@ public class SignUp extends AppCompatActivity implements Callback<User> {
         sign_up.setOnClickListener(v -> {
             check_and_register_user();
         });
+        progressDialog = new ProgressDialog(this);
 
     }
 
@@ -109,6 +111,7 @@ public class SignUp extends AppCompatActivity implements Callback<User> {
         } else if (TextUtils.isEmpty(phone.getText())) {
             phone.setBackground(getResources().getDrawable(R.drawable.empty_text_field_background, getTheme()));
         } else {
+            progressDialog.showDissmissDialog();
             User user = new User();
             user.setId(System.currentTimeMillis());
             user.setEmail(email_field.getText().toString());
@@ -154,6 +157,7 @@ public class SignUp extends AppCompatActivity implements Callback<User> {
 
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
+        progressDialog.showDissmissDialog();
         if (response.body() != null && response.code() == 200) {
             this.user = response.body();
             Intent intent = new Intent(this, AccountActivationActivity.class);
@@ -168,6 +172,8 @@ public class SignUp extends AppCompatActivity implements Callback<User> {
             }
 
         } else {
+            progressDialog.showDissmissDialog();
+
             Snackbar.make(scroll_view, "Veuilliez vérifier votre conexion internet puis ressayer", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Ressayer", view -> {
                         check_and_register_user();

@@ -1,6 +1,6 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.services;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,7 +28,9 @@ public class RetrofitClient extends AppCompatActivity {
     //public static final String BASE_URL = "http://192.168.1.2:8000/";
    // public static final String BASE_URL = "http://192.168.3.140:8000/";
     //public static final String BASE_URL = "http://192.168.3.136:8000/";
-    public static final String BASE_URL = "http://192.168.1.3:8000/";
+    public static final String BASE_URL = "http://192.168.1.2:8000/";
+   // public static final String BASE_URL = "http://192.168.1.3:8000/";
+   // public static final String BASE_URL = "http://192.168.1.4:8000/";
 
     protected Retrofit retrofit;
 

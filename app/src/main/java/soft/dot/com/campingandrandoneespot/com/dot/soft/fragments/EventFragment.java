@@ -1,13 +1,10 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.fragments;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,14 +14,28 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.EventDetailActivity;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.NewEventActivity;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.adapters.EventAdapter;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Event;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Roles;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.UserSharedPref;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.services.EventServices;
 
 public class EventFragment extends Fragment implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
     RecyclerView list_event;
@@ -48,34 +59,30 @@ public class EventFragment extends Fragment implements View.OnClickListener, Pop
     }
 
     private void populateListEvent() {
-        ArrayList<Event> events_list = new ArrayList<>();
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
-        events_list.add(new Event("Séance de aquagym à la plage", "30/07/2020 à 08:00", "L'association à le " +
-                "plaisir de vous inviter à une séance de Aqua Gym pour vous remettre ne forme. Aucun frais d'inscription n'est requis " +
-                "et vous serez encadré par des spécialiste de conditionnement phisique.", "Remel plage prêt des épaves."));
+        EventServices eventServices = new EventServices();
 
-        EventAdapter eventAdapter = new EventAdapter(events_list, getActivity(), this);
-        list_event.setAdapter(eventAdapter);
+        eventServices.index(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if (response.code() == 200) {
+                    if (response.body() != null && !response.body().isEmpty()) {
+                        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+                        list_event.addItemDecoration(dividerItemDecoration);
+                        EventAdapter eventAdapter = new EventAdapter((ArrayList<Event>) response.body(), getActivity(), EventFragment.this);
+                        list_event.setAdapter(eventAdapter);
+
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Erreur intern veuillier ressayer plus tard", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Erreur intern veuillier ressayer plus tard", Toast.LENGTH_LONG).show();
+                Log.e("PopulateListEvent", t.getMessage());
+            }
+        });
     }
 
     public void launchDetailsActivity(Event event) {
@@ -84,6 +91,7 @@ public class EventFragment extends Fragment implements View.OnClickListener, Pop
         bundle.putString(EventDetailActivity.EVENT_LOCATION, event.getPlace());
         bundle.putString(EventDetailActivity.EVENT_DATE, event.getDate());
         bundle.putString(EventDetailActivity.EVENT_NAME, event.getTitle());
+        bundle.putParcelable(EventDetailActivity.EVENT_KEY, event);
         Intent intent = new Intent(getActivity(), EventDetailActivity.class);
         intent.putExtras(bundle);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
@@ -92,11 +100,18 @@ public class EventFragment extends Fragment implements View.OnClickListener, Pop
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.button7) {
+            UserSharedPref userSharedPref = new UserSharedPref(getActivity().getSharedPreferences(UserSharedPref.USER_FILE, Context.MODE_PRIVATE));
+            String role = userSharedPref.getString(UserSharedPref.USER_ROLE);
+
             MenuInflater menuInflater = getActivity().getMenuInflater();
             PopupMenu popupMenu = new PopupMenu(getActivity(), button7);
-            menuInflater.inflate(R.menu.event_menu, popupMenu.getMenu());
-            popupMenu.show();
             popupMenu.setOnMenuItemClickListener(this);
+            if (!role.equals(Roles.SUPER_ADMIN)) {
+                menuInflater.inflate(R.menu.event_menu, popupMenu.getMenu());
+            } else {
+                menuInflater.inflate(R.menu.super_admin_event_menu, popupMenu.getMenu());
+            }
+            popupMenu.show();
 
         }
     }
@@ -106,7 +121,34 @@ public class EventFragment extends Fragment implements View.OnClickListener, Pop
         if (menuItem.getItemId() == R.id.proposer_event) {
             Intent intent = new Intent(getActivity(), NewEventActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+        } else if (menuItem.getItemId() == R.id.proposed_event) {
+            get_unnalowed_event();
         }
         return true;
+    }
+
+    private void get_unnalowed_event() {
+        EventServices eventServices = new EventServices();
+        eventServices.get_unallowed_event(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if (response.code() == 200) {
+                    if (response.body() != null && !response.body().isEmpty()) {
+                        EventAdapter eventAdapter = new EventAdapter((ArrayList<Event>) response.body(), getActivity(), EventFragment.this);
+
+                        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+                        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.item_separator));
+                        list_event.addItemDecoration(dividerItemDecoration);
+                        list_event.setAdapter(eventAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Failled to reach server", Toast.LENGTH_SHORT).show();
+                Log.e("get_unnalowed_event", "onFailure: " + t.getMessage());
+            }
+        });
     }
 }

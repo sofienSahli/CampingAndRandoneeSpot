@@ -97,7 +97,7 @@ public class UserSharedPref {
         insertString(UserSharedPref.USER_PASSWRD, user.getPassword());
         insertString(UserSharedPref.EMAIL, user.getEmail());
         insertString(UserSharedPref.USER_BIRTHDATE, user.getBirthDate());
-        insertString(UserSharedPref.USER_ROLE, user.getBirthDate());
+        insertString(UserSharedPref.USER_ROLE, user.getRole());
         inserLong(UserSharedPref.USER_ID, user.getId());
         inserLong(UserSharedPref.USER_PHONE, user.getPhone());
 

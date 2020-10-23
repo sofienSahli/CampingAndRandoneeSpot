@@ -28,14 +28,32 @@ public interface IUserServices {
     Call<User> activate_account(@Path("id") String id, @Path("activation_code") String activation_code);
 
     @Multipart
-
     @POST("/media")
     Call<ResponseBody> set_profile_picture(@Part MultipartBody.Part file, @Part("owner_id") long owner_id, @Part("type") String type);
 
     @GET("/user/login/{email}/{password}")
     Call<List<User>> login(@Path("email") String email, @Path("password") String password);
+
     @GET("/media/{id}")
-    Call<ResponseBody> get_profile_picture(@Path("id") long ind );
+    Call<ResponseBody> get_profile_picture(@Path("id") long ind);
+
+    @POST("/user/admins")
+    Call<List<User>> get_admins_user();
+
+    @POST("/user/simple")
+    Call<List<User>> get_simple_user();
+
+    @POST("/user/super")
+    Call<List<User>> get_super_admins();
+
+    @GET("user/ban_account/{id}")
+    Call<ResponseBody> ban_user_account(@Path("id") long id);
+
+    @GET("user/activate/{id}")
+    Call<ResponseBody> retablir_account(@Path("id") long id);
+
+    @GET("user/{id}/{role}")
+    Call<ResponseBody> update_privilége(@Path("id") long id, @Path("role") String role);
 
     /*    @GET()
     Call<ResponseBody>  notifyCycleEnd(@Url String url);

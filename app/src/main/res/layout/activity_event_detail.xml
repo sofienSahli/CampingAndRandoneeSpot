@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".com.dot.soft.activities.EventDetailActivity">
@@ -18,12 +18,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:elevation="16dp"
             android:padding="8dp"
             android:text="@string/association_description_2"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageSwitcher2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
         <TextView
             android:id="@+id/event_lieu"
@@ -39,18 +40,20 @@
             android:text="Remel Plage prêt des épaves"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button5"
+            app:layout_constraintTop_toBottomOf="@+id/event_description" />
 
-            />
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar3"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/event_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:background="@color/colorPrimary"
+            android:padding="8dp"
+            android:text="Ramassage d'ordure"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -59,10 +62,11 @@
             android:id="@+id/imageSwitcher2"
             android:layout_width="0dp"
 
-            android:layout_height="360dp"
+            android:layout_height="320dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar3" >
+            app:layout_constraintTop_toBottomOf="@+id/event_title">
 
         </ImageSwitcher>
 
@@ -73,18 +77,20 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/ic_action_map"
-            android:drawableTint="@color/colorPrimary"
+            android:layout_marginBottom="16dp"
+            android:background="@color/design_default_color_primary"
+            android:drawableTint="@color/colorWhite"
+            android:elevation="16dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="S'incrire à l'évenement"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_description" />
+            app:layout_constraintTop_toBottomOf="@+id/event_date" />
 
         <TextView
             android:id="@+id/event_date"
@@ -102,5 +108,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_lieu" />
-    </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:alpha=".7"
+            android:padding="8dp"
+            android:text="Proposé par :"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageSwitcher2" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:padding="8dp"
+            android:text="Foulen ben felten"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView33"
+            app:layout_constraintTop_toBottomOf="@+id/imageSwitcher2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

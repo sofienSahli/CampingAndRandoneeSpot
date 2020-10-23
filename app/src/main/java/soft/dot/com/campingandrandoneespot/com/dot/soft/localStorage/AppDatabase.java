@@ -1,18 +1,15 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 import android.content.Context;
-import android.telephony.SmsMessage;
 
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Individual;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Species;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.User;
 
-@Database(entities = {Spot.class, Circuit.class, User.class}, version = 10, exportSchema = false)
+@Database(entities = {Spot.class, Circuit.class, User.class}, version = 11, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

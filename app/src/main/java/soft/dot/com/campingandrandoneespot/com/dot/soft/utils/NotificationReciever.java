@@ -7,10 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
-import android.widget.Chronometer;
-import android.widget.RemoteViews;
+
+import androidx.core.app.NotificationCompat;
+
 import android.widget.Toast;
 
 import soft.dot.com.campingandrandoneespot.R;
@@ -45,7 +44,7 @@ showNotification(context);
                 .setSmallIcon(R.mipmap.ic_icone_round)
                 .addAction(R.drawable.ic_action_home, "Unpause", pendingIntent1)
 
-                .setStyle(new android.support.v4.media.app.NotificationCompat.DecoratedMediaCustomViewStyle().setShowActionsInCompactView(0))
+                .setStyle(new androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle().setShowActionsInCompactView(0))
                 //().bigLargeIcon(largeIcon).bigPicture(largeIcon).setBigContentTitle("Race's Tracking"))
                 .setContentIntent(pendingIntent);
 

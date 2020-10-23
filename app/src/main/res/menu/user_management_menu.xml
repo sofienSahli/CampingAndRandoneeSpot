@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+
+        android:id="@+id/startScreenGroup"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/submenu0"
+            android:title="Utilisateur" />
+        <item
+            android:id="@+id/submenu1"
+            android:title="Admins" />
+        <item
+            android:id="@+id/submenu2"
+            android:title="Super Admin" />
+    </group>
+
+
+</menu>

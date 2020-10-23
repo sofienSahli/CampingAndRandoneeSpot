@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/call"
+        android:title="Appeler" />
+    <item
+        android:id="@+id/email"
+        android:title="Envoyer mail" />
+    <item
+        android:id="@+id/events"
+        android:title="Evenement" />
+    <item
+        android:id="@+id/circuits"
+        android:title="Circuits" />
+</menu>

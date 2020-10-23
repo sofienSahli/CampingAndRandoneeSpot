@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CampingAndRandoneeSpot</string>
+    <string name="app_name">Les amis du Remel</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -51,10 +51,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="map_key">pk.eyJ1Ijoic29maWVuc2FobGkiLCJhIjoiY2tkN2JoczZrMDRiODJ5azZlMGR6enp2byJ9.VikuY1WPNabxugaCQ7Ql3Q</string>
+    <string name="map_key">pk.eyJ1Ijoic29maWVuc2FobGkiLCJhIjoiY2tmMm5reGtxMDBudjJxcXMwcXZ0Zzl3MSJ9.Zlh9CU1KS75wNiHyzyUgwQ</string>
     <array name="event_categories">
         <item>
-            <string> Santé</string>
+            <string> Santé et bien être </string>
         </item>
         <item>
             <string> Culturel</string>

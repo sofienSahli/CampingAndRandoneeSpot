@@ -1,19 +1,123 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.entities;
 
-import android.arch.persistence.room.Entity;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-@Entity
-public class Event {
+
+public class Event implements Parcelable {
     int id;
     String title;
     String date;
     String description;
-    List<User> participants;
+    List<EventUser> participants;
     String place;
     double longitude;
     double latitude;
-    List<String> images;
+    List<Media> medias;
+    long prposed_by;
+    String starting_date;
+    String theme;
+    boolean is_allowed;
+    User proposer;
+
+    public List<EventUser> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<EventUser> participants) {
+        this.participants = participants;
+    }
+
+    protected Event(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        date = in.readString();
+        description = in.readString();
+        participants = in.createTypedArrayList(EventUser.CREATOR);
+        place = in.readString();
+        longitude = in.readDouble();
+        latitude = in.readDouble();
+        medias = in.createTypedArrayList(Media.CREATOR);
+        prposed_by = in.readLong();
+        starting_date = in.readString();
+        theme = in.readString();
+        is_allowed = in.readByte() != 0;
+        proposer = in.readParcelable(User.class.getClassLoader());
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
+
+    public User getProposer() {
+        return proposer;
+    }
+
+    public void setProposer(User proposer) {
+        this.proposer = proposer;
+    }
+
+    public boolean isIs_allowed() {
+        return is_allowed;
+    }
+
+    public void setIs_allowed(boolean is_allowed) {
+        this.is_allowed = is_allowed;
+    }
+
+
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public long getPrposed_by() {
+        return prposed_by;
+    }
+
+    public void setPrposed_by(long prposed_by) {
+        this.prposed_by = prposed_by;
+    }
+
+    public String getStarting_date() {
+        return starting_date;
+    }
+
+    public void setStarting_date(String starting_date) {
+        this.starting_date = starting_date;
+    }
+
+    public List<Media> getMedias() {
+        return medias;
+    }
+
+    public void setMedias(List<Media> medias) {
+        this.medias = medias;
+    }
+
+    public long getPrposed_by_id() {
+        return prposed_by;
+    }
+
+    public void setPrposed_by_id(long prposed_by_id) {
+        this.prposed_by = prposed_by_id;
+    }
 
     public Event() {
     }
@@ -25,17 +129,6 @@ public class Event {
         this.place = place;
     }
 
-    public Event(int id, String title, String date, String description, List<User> participants, String place, double longitude, double latitude, List<String> images) {
-        this.id = id;
-        this.title = title;
-        this.date = date;
-        this.description = description;
-        this.participants = participants;
-        this.place = place;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.images = images;
-    }
 
     public int getId() {
         return id;
@@ -69,13 +162,6 @@ public class Event {
         this.description = description;
     }
 
-    public List<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
-    }
 
     public String getPlace() {
         return place;
@@ -101,11 +187,27 @@ public class Event {
         this.latitude = latitude;
     }
 
-    public List<String> getImages() {
-        return images;
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(date);
+        parcel.writeString(description);
+        parcel.writeTypedList(participants);
+        parcel.writeString(place);
+        parcel.writeDouble(longitude);
+        parcel.writeDouble(latitude);
+        parcel.writeTypedList(medias);
+        parcel.writeLong(prposed_by);
+        parcel.writeString(starting_date);
+        parcel.writeString(theme);
+        parcel.writeByte((byte) (is_allowed ? 1 : 0));
+        parcel.writeParcelable(proposer, i);
     }
 }

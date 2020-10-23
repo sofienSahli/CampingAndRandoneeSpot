@@ -4,20 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
 
-    <android.support.constraint.ConstraintLayout
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView10"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/besla"
-            app:layout_constraintBottom_toBottomOf="@+id/phone"
-            app:layout_constraintEnd_toStartOf="@+id/name"
+            android:layout_height="256dp"
+            android:padding="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            android:src="@drawable/background_2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,69 +30,65 @@
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="8dp"
             android:padding="8dp"
             android:text="Foulen ben felten"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
         <TextView
             android:id="@+id/email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:alpha=".7"
+            android:alpha="1"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="8dp"
             android:padding="8dp"
             android:text="sofien.sahli@esprit.tn"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <TextView
             android:id="@+id/phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:alpha=".7"
+            android:alpha="1"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="8dp"
             android:padding="8dp"
             android:text="74585494"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@+id/update"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/update"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="16dp"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/phone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/phone"
             app:layout_constraintTop_toTopOf="@+id/phone"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
         <Button
             android:id="@+id/events"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/radius_corners_8_green"
             android:padding="8dp"
             android:text="List des evenement"
             android:textAllCaps="false"
@@ -99,11 +100,11 @@
         <Button
             android:id="@+id/circuit"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/radius_corners_8_green"
             android:padding="8dp"
             android:text="Mes circuits"
             android:textAllCaps="false"
@@ -116,11 +117,11 @@
         <Button
             android:id="@+id/users"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/radius_corners_8_green"
             android:padding="8dp"
             android:text="Gestion des utilisateurs"
             android:textAllCaps="false"
@@ -131,19 +132,21 @@
             app:layout_constraintTop_toBottomOf="@+id/circuit" />
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/radius_corners_8_green"
             android:padding="8dp"
             android:text="Se déconnecter"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/users" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

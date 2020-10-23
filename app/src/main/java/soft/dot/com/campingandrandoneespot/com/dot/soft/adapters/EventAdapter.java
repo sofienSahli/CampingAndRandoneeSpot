@@ -1,8 +1,6 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +8,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import soft.dot.com.campingandrandoneespot.R;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Event;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.fragments.EventFragment;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.services.RetrofitClient;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder> {
     ArrayList<Event> events;
@@ -52,7 +55,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder> {
     class Holder extends RecyclerView.ViewHolder {
         ImageView imageView9;
         TextView event_title, event_date, event_point, event_desc;
-        Button event_detail, event_inscription;
+        Button event_detail;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
@@ -62,16 +65,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder> {
             event_point = itemView.findViewById(R.id.event_point);
             event_desc = itemView.findViewById(R.id.event_desc);
             event_detail = itemView.findViewById(R.id.event_detail);
-            event_inscription = itemView.findViewById(R.id.event_inscription);
 
 
         }
 
         public void setEvent(Event event) {
+
             event_title.setText(event.getTitle());
-            event_date.setText(event.getDate());
+            event_date.setText(event.getStarting_date());
             event_desc.setText(event.getDescription());
             event_point.setText(event.getPlace());
+            if (event.getMedias() != null && !event.getMedias().isEmpty()) {
+                String path = RetrofitClient.BASE_URL + "" + event.getMedias().get(0).getFile();
+                Picasso.with(context).load(path).into(imageView9);
+            } else {
+                imageView9.setVisibility(View.GONE);
+            }
+
         }
     }
 

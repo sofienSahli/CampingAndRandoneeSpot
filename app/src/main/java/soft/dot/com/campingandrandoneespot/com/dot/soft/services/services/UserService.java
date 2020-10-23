@@ -24,7 +24,7 @@ public class UserService {
         call.enqueue(callback);
     }
 
-    public void logIn(String password, String email,  Callback<List<User>> callback) {
+    public void logIn(String password, String email, Callback<List<User>> callback) {
         RetrofitClient retrofitClient = new RetrofitClient();
         IUserServices iUserDAO = retrofitClient.getRetrofit().create(IUserServices.class);
         Call<List<User>> call = iUserDAO.login(email, password);
@@ -53,11 +53,58 @@ public class UserService {
         Call<ResponseBody> call = iCircuitServices.set_profile_picture(file, owner_id, type);
         call.enqueue(callback);
     }
-    public void get_profile_picture( Callback<ResponseBody> callback, long id  ){
+
+    public void get_profile_picture(Callback<ResponseBody> callback, long id) {
         RetrofitClient retrofitClient = new RetrofitClient();
         IUserServices iCircuitServices = retrofitClient.getRetrofit().create(IUserServices.class);
         Call<ResponseBody> call = iCircuitServices.get_profile_picture(id);
         call.enqueue(callback);
+    }
+
+    public void get_simple_user(Callback<List<User>> callback) {
+
+        RetrofitClient retrofitClient = new RetrofitClient();
+        IUserServices iCircuitServices = retrofitClient.getRetrofit().create(IUserServices.class);
+        Call<List<User>> call = iCircuitServices.get_simple_user();
+        call.enqueue(callback);
+    }
+
+    public void get_admins_user(Callback<List<User>> callback) {
+
+        RetrofitClient retrofitClient = new RetrofitClient();
+        IUserServices iCircuitServices = retrofitClient.getRetrofit().create(IUserServices.class);
+        Call<List<User>> call = iCircuitServices.get_admins_user();
+        call.enqueue(callback);
+    }
+
+    public void get_super_admin(Callback<List<User>> callback) {
+        RetrofitClient retrofitClient = new RetrofitClient();
+        IUserServices iCircuitServices = retrofitClient.getRetrofit().create(IUserServices.class);
+        Call<List<User>> call = iCircuitServices.get_super_admins();
+        call.enqueue(callback);
+    }
+
+    public void ban_account(Callback<ResponseBody> callback, long id) {
+        RetrofitClient retrofitClient = new RetrofitClient();
+        IUserServices iCircuitServices = retrofitClient.getRetrofit().create(IUserServices.class);
+        Call<ResponseBody> call = iCircuitServices.ban_user_account(id);
+        call.enqueue(callback);
+
+    }
+
+    public void retablir_account(Callback<ResponseBody> callback, long id) {
+        RetrofitClient retrofitClient = new RetrofitClient();
+        IUserServices iCircuitServices = retrofitClient.getRetrofit().create(IUserServices.class);
+        Call<ResponseBody> call = iCircuitServices.retablir_account(id);
+        call.enqueue(callback);
+
+    }
+
+    public void update_privilége(Callback<ResponseBody> callback, long id, String role) {
+        RetrofitClient retrofitClient = new RetrofitClient();
+        IUserServices iUserServices = retrofitClient.getRetrofit().create(IUserServices.class);
+        Call<ResponseBody> responseBodyCall = iUserServices.update_privilége(id, role);
+        responseBodyCall.enqueue(callback);
     }
 
 }

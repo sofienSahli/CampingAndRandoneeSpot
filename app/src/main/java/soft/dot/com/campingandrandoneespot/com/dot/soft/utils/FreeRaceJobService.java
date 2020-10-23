@@ -1,7 +1,7 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.utils;
 
 import android.Manifest;
-import android.app.NotificationChannel;
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.job.JobParameters;
@@ -17,41 +17,40 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import soft.dot.com.campingandrandoneespot.R;
-import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.FreeRaceActivity;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
+import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
 
 public class FreeRaceJobService extends JobService implements LocationListener {
-    private static final int NOTIFICATION_ID = 202 ;
+    private static final int NOTIFICATION_ID = 202;
     Circuit circuit;
     static public final String CIRCUI_KEY = "circuit_key";
     NotificationCompat.Builder mBuilder;
 
-    public FreeRaceJobService(){
+    public FreeRaceJobService() {
     }
+
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        Log.e("JOBSERVICE" , " 1");
-
+        Log.e("JOBSERVICE", " 1");
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return false;
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
         }
         long id = jobParameters.getExtras().getLong(CIRCUI_KEY);
-        Toast.makeText(this, "id : " + id  , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "id : " + id, Toast.LENGTH_SHORT).show();
         circuit = AppDatabase.getAppDatabase(this).circuitDAO().findById(id);
-        showNotification();
+        //showNotification();
         return true;
     }
 
@@ -70,7 +69,7 @@ public class FreeRaceJobService extends JobService implements LocationListener {
                 .setContentTitle("Enregistrement Du circuit")
                 .setSmallIcon(R.mipmap.ic_icone_round)
                 .setCustomContentView(remoteViews)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.DecoratedMediaCustomViewStyle())
+                .setStyle(new androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle())
                 //().bigLargeIcon(largeIcon).bigPicture(largeIcon).setBigContentTitle("Race's Tracking"))
                 .setContentIntent(pendingIntent);
 
@@ -98,6 +97,7 @@ public class FreeRaceJobService extends JobService implements LocationListener {
             spot.setImage_url("Not attriuable");
             spot.setLatitude(location.getLatitude());
             spot.setLongitude(location.getLongitude());
+            spot.setSaved_at(SystemClock.currentThreadTimeMillis());
             circuit.getSpots().add(spot);
             Log.e("Circuit STATUS : ", "Spot Aded ");
             AppDatabase.getAppDatabase(this).spotDao().insertSpot(spot);
@@ -135,7 +135,6 @@ public class FreeRaceJobService extends JobService implements LocationListener {
             notificationManager.createNotificationChannel(channel);*/
         }
     }
-
 
 
 }

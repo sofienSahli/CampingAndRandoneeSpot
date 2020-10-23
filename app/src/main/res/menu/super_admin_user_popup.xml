@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/user_management"
+        android:title="Gestion de compte">
+        <group
+            android:id="@+id/startScreenGroup"
+            android:menuCategory="container">
+            <menu>
+                <item
+                    android:id="@+id/submenu0"
+                    android:title="Promouvoire le compte" />
+                <item
+                    android:id="@+id/submenu1"
+                    android:title="Bannir l'utilisateur" />
+                <item
+                    android:id="@+id/submenu2"
+                    android:title="Afficher le profil" />
+            </menu>
+
+        </group>
+
+    </item>
+    <item
+        android:id="@+id/user_details"
+        android:title="Contacter">
+        <group android:menuCategory="container">
+            <menu>
+                <item
+                    android:id="@+id/call"
+                    android:title="Appeler" />
+                <item
+                    android:id="@+id/email"
+                    android:title="Envoyer mail" />
+
+            </menu>
+        </group>
+
+    </item>
+
+</menu>

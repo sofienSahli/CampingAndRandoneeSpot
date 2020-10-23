@@ -3,7 +3,7 @@ package soft.dot.com.campingandrandoneespot.com.dot.soft.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +19,7 @@ import soft.dot.com.campingandrandoneespot.com.dot.soft.activities.MapsActivity;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Circuit;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.entities.Spot;
 import soft.dot.com.campingandrandoneespot.com.dot.soft.localStorage.AppDatabase;
+import timber.log.Timber;
 
 public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapters.AdapterViewHolder> {
 
@@ -70,6 +71,7 @@ public class CircuitListAdapters extends RecyclerView.Adapter<CircuitListAdapter
         public void bindViewHolder(Circuit circuit) {
             date.setText(circuit.getCreated_at());
             if (circuit.getSpots() != null && !circuit.getSpots().isEmpty()) {
+                Timber.e("Spot %s", circuit.getSpots().toString());
                 float distance = calculateDistance(circuit.getSpots().get(0), circuit.getSpots().get(circuit.getSpots().size() - 1));
                 this.distance.setText(distance + " KM");
                 this.vitess.setText(distance / circuit.getDuree() + "km/h");

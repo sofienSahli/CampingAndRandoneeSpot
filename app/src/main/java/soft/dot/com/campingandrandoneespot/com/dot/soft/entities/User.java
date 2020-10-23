@@ -1,15 +1,15 @@
 package soft.dot.com.campingandrandoneespot.com.dot.soft.entities;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,12 +29,10 @@ public class User implements Parcelable {
     @Expose
     @SerializedName("first_name")
     @ColumnInfo(name = "firstName")
-
     private String firstName;
     @Expose
     @SerializedName("last_name")
     @ColumnInfo(name = "lastName")
-
     private String lastName;
     @Expose
     @SerializedName("role")
@@ -60,10 +58,12 @@ public class User implements Parcelable {
     @SerializedName("activation_code")
     @ColumnInfo(name = "activation_code")
     private String activation_code ;
-    public User (){
+    @Ignore
+    List<Media> medias ;
+    @Ignore
+    List<Event> events;
 
-    }
-    public User(Parcel in) {
+    protected User(Parcel in) {
         id = in.readLong();
         password = in.readString();
         firstName = in.readString();
@@ -74,6 +74,8 @@ public class User implements Parcelable {
         phone = in.readLong();
         isActive = in.readByte() != 0;
         activation_code = in.readString();
+        medias = in.createTypedArrayList(Media.CREATOR);
+        events = in.createTypedArrayList(Event.CREATOR);
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -88,6 +90,17 @@ public class User implements Parcelable {
         }
     };
 
+    public List<Media> getMedias() {
+        return medias;
+    }
+
+    public void setMedias(List<Media> medias) {
+        this.medias = medias;
+    }
+
+    public User (){
+
+    }
     public long getPhone() {
         return phone;
     }
@@ -198,5 +211,7 @@ public class User implements Parcelable {
         parcel.writeLong(phone);
         parcel.writeByte((byte) (isActive ? 1 : 0));
         parcel.writeString(activation_code);
+        parcel.writeTypedList(medias);
+        parcel.writeTypedList(events);
     }
 }
